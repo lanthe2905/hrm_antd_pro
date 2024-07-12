@@ -2,8 +2,8 @@
  * loading 占位
  * 解决首次加载时白屏的问题
  */
- (function () {
-  const _root = document.querySelector('#root');
+;(function () {
+  const _root = document.querySelector('#root')
   if (_root && _root.innerHTML === '') {
     _root.innerHTML = `
       <style>
@@ -191,12 +191,12 @@
           </div>
         </div>
         <div class="loading-title">
-          正在加载资源
+          Đang tải tài nguyên
         </div>
         <div class="loading-sub-title">
-          初次加载资源可能需要较多时间 请耐心等待
+          Quá trình tải tài nguyên ban đầu có thể mất nhiều thời gian, hãy kiên nhẫn.
         </div>
       </div>
-    `;
+    `
   }
-})();
+})()
