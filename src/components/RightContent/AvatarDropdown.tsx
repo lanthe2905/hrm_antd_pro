@@ -16,7 +16,7 @@ export type GlobalHeaderRightProps = {
 export const AvatarName = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-  return <span className="anticon">{currentUser?.name}</span>;
+  return <span className="anticon">{currentUser?.ho_va_ten}</span>;
 };
 
 const useStyles = createStyles(({ token }) => {
@@ -93,8 +93,7 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
   }
 
   const { currentUser } = initialState;
-
-  if (!currentUser || !currentUser.name) {
+  if (!currentUser || !currentUser.ho_va_ten) {
     return loading;
   }
 
@@ -119,10 +118,9 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
     {
       key: 'logout',
       icon: <LogoutOutlined />,
-      label: '退出登录',
+      label: 'Đăng xuất',
     },
   ];
-
   return (
     <HeaderDropdown
       menu={{

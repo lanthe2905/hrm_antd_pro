@@ -7,6 +7,7 @@ declare namespace API {
   
   type CurrentUser = {
     name?: string;
+    ho_va_ten: string;
     avatar?: string;
     userid?: string;
     email?: string;
@@ -56,6 +57,7 @@ declare namespace API {
     type: string;
     token: string;
     expired_at: string;
+    status?: string;
   };
 
   type NoticeIconItem = {
