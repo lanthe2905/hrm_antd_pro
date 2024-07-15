@@ -44,6 +44,18 @@ export default [
     ],
   },
   {
+    name: 'users',
+    path: '/users',
+    icon: 'dashboard',
+    routes: [
+      {
+        path: '/users/departments',
+        name: 'departments',
+        component: './departments',
+      }
+    ]
+  },
+  {
     path: '/dashboard',
     name: 'dashboard',
     icon: 'dashboard',
@@ -134,12 +146,6 @@ export default [
             component: './list/search/applications',
           },
         ],
-      },
-      {
-        name: 'departments',
-        icon: 'smile',
-        path: '/list/departments',
-        component: './list/departments',
       },
       {
         path: '/list',

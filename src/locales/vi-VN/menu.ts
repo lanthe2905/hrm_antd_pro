@@ -24,7 +24,6 @@ export default {
   'menu.list': 'List',
   'menu.list.table-list': 'Search Table',
   'menu.list.basic-list': 'Basic List',
-  'menu.list.departments': 'Phòng ban',
   'menu.list.card-list': 'Card List',
   'menu.list.search-list': 'Search List',
   'menu.list.search-list.articles': 'Search List(articles)',
@@ -50,4 +49,8 @@ export default {
   'menu.editor.flow': 'Flow Editor',
   'menu.editor.mind': 'Mind Editor',
   'menu.editor.koni': 'Koni Editor',
+
+  //Custom layout
+  'menu.users.departments': "Phòng ban",
+  'menu.users': "Nhân sự",
 };

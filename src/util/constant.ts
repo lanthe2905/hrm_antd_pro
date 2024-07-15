@@ -15,4 +15,16 @@ const constant = {
   number_required: 'Yêu cầu nhập số',
 }
 
-export { constant }
+const KHOI_LL = [
+  { value: 'GT-BT', label: 'Khối Gián tiếp bổ trợ' },
+  { value: 'BTC', label: 'Khối bổ trợ ca' },
+  { value: 'LM', label: 'Khối Lái Máy' },
+  { value: 'SC', label: 'Khối sửa chữa' },
+]
+const HINH_THUC_LAM_VIEC = [
+  { value: 'thu_viec', label: 'Thử việc' },
+  { value: 'toan_thoi_gian', label: 'Toàn thời gian' },
+]
+
+
+export { constant, KHOI_LL, HINH_THUC_LAM_VIEC }
