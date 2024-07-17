@@ -147,7 +147,7 @@ export const layout: RunTimeLayoutConfig = ({
  * @doc https://umijs.org/docs/max/request#配置
  */
 export const request: RequestConfig = {
-  baseURL: 'http://localhost:3333',
+  baseURL: 'http://192.168.1.8:3333',
   // baseURL: 'https://proapi.azurewebsites.net',
   ...errorConfig,
 }

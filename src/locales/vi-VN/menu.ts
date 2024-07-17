@@ -52,5 +52,6 @@ export default {
 
   //Custom layout
   'menu.users.departments': "Phòng ban",
+  'menu.users.job-titles': "Chức danh",
   'menu.users': "Nhân sự",
 };
