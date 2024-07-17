@@ -28,7 +28,7 @@ interface ResponseStructure {
 export const errorConfig: RequestConfig = {
   // 错误处理： umi@3 的错误处理方案。
   errorConfig: {
-    // 错误抛出
+    // Lỗi ném
     errorThrower: (res) => {
       const { success, data, errorCode, errorMessage, showType } =
         res as unknown as ResponseStructure;
@@ -39,7 +39,7 @@ export const errorConfig: RequestConfig = {
         throw error; // 抛出自制的错误
       }
     },
-    // 错误接收及处理
+    // Tiếp nhận xử lý!
     errorHandler: (error: any, opts: any) => {
       throw error.response.data
     },
@@ -54,15 +54,10 @@ export const errorConfig: RequestConfig = {
     },
   ],
 
-  // 响应拦截器
+  // Xử lý response trước khi trả về cho component
   responseInterceptors: [
     (response) => {
-      // 拦截响应数据，进行个性化处理
       const { data } = response as unknown as ResponseStructure;
-
-      if (data?.success === false) {
-        message.error('请求失败！');
-      }
       return response;
     },
   ],

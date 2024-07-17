@@ -4,15 +4,16 @@ const IMAGE_PATH = process.env.NODE_ENV === 'production' ? 'icons' : '/icons'
 const LIMIT_INIT = 10
 const FORMAT_DATE_BE = 'YYYY-MM-DD'
 
-
 const LOAI_PHAN_CA = ['ca_nhan', 'nhom'] as const
 
 const getMessage = (id: string, ...params: Array<any>): string => {
   const message = messages[id] || id
-  const result = message.replace(/\{(\d+)\}/g, (_match: any, index: any) => params[index])
+  const result = message.replace(
+    /\{(\d+)\}/g,
+    (_match: any, index: any) => params[index],
+  )
   return result
 }
-
 
 const convertEmptyToNull = (item: any): any => {
   const obj = { ...item }
@@ -62,7 +63,6 @@ const createUniqueKey = () => {
   return Math.floor(Math.random() * (1000 - 1 + 1)) + 1
 }
 
-
 const regexGetNumber = (num: string | number): string => {
   if (num == 0) return '0'
   if (!num) return ''
@@ -70,7 +70,8 @@ const regexGetNumber = (num: string | number): string => {
 }
 
 const getLoaiPhanCa = (key: (typeof LOAI_PHAN_CA)[number]) => {
-  if (LOAI_PHAN_CA.includes(key) == false) throw new Error('Không tìm thấy loại phân ca')
+  if (LOAI_PHAN_CA.includes(key) == false)
+    throw new Error('Không tìm thấy loại phân ca')
   return key
 }
 
@@ -80,7 +81,13 @@ const renderCurrency = (num: any) => {
   return Number(num).toLocaleString('en-US')
 }
 
-
+const beforeResponse = (response: any) => {
+  return {
+    data: response.data,
+    code: 1,
+    status: "OK"
+  }
+}
 
 export {
   IMAGE_PATH,
