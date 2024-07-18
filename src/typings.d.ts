@@ -16,3 +16,4 @@ declare module 'mockjs';
 declare module 'react-fittext';
 
 declare const REACT_APP_ENV: 'test' | 'dev' | 'pre' | false;
+declare const UMI_API_URL: string;

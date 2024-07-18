@@ -36,7 +36,6 @@ export async function getInitialState(): Promise<{
     }
     return undefined
   }
-  // 如果不是登录页面，执行
   const { location } = history
   if (
     ![loginPath, '/user/register', '/user/register-result'].includes(
@@ -147,7 +146,7 @@ export const layout: RunTimeLayoutConfig = ({
  * @doc https://umijs.org/docs/max/request#配置
  */
 export const request: RequestConfig = {
-  baseURL: 'http://192.168.1.8:3333',
+  baseURL: UMI_API_URL,
   // baseURL: 'https://proapi.azurewebsites.net',
   ...errorConfig,
 }

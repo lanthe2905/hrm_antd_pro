@@ -1,6 +1,6 @@
 export default {
-  'app.setting.pagestyle': 'Page style setting',
-  'app.setting.pagestyle.dark': 'Dark style',
+  'app.setting.pagestyle': 'Định dạng trang',
+  'app.setting.pagestyle.dark': 'Chế độ ban đêm',
   'app.setting.pagestyle.light': 'Light style',
   'app.setting.content-width': 'Content Width',
   'app.setting.content-width.fixed': 'Fixed',

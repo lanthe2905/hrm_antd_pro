@@ -3,17 +3,6 @@ import { User } from '@/models/user.model'
 
 const initUser: any = { id: 0, ho_va_ten: '' }
 // const cookies = new Cookies(null, { path: '/' })
-const TOKEN_NAME = 'access_token'
-
-
-const setToken = (token: string | null) => {
-  // cookies.set(TOKEN_NAME, token)
-  localStorage.setItem(TOKEN_NAME, token as string)
-}
-
-const getToken = () => {
-  return localStorage.getItem(TOKEN_NAME)
-}
 
 const getUserLogin = (): User => {
   let userStore = localStorage.getItem('user')
@@ -29,7 +18,7 @@ const getUserLogin = (): User => {
     return initUser as User
   }
 }
-
+  
 const setUserLogin = async (user: User): Promise<void> => {
   try {
     let userJson: string = JSON.stringify(user)
@@ -39,4 +28,4 @@ const setUserLogin = async (user: User): Promise<void> => {
   }
 }
 
-export {  setUserLogin, getUserLogin, setToken, getToken }
+export {  setUserLogin, getUserLogin }
