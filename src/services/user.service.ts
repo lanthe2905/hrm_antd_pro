@@ -13,11 +13,16 @@ export async function currentUser(options?: { [key: string]: any }) {
 }
 
  export const getList = async (params= {}, options= {}) => {
-  return request<UserListResponse>(resource, {
+  const rs =  await request<UserListResponse>(resource, {
     method: 'GET',
     params: params,
     ...(options || {}),
   });
+  return {
+    data: rs?.data ?? [],
+    success: true,
+    total: rs.meta.total ?? 0,
+  }
 }
 
 export const deleteUser = async (payload: User) => {
@@ -27,7 +32,7 @@ export const deleteUser = async (payload: User) => {
 }
 
 export const createUser = async (payload: User) => {
-  return request<UserResponse>(resource +"/"+ payload.id, {
+  return request<UserResponse>(resource , {
     params: payload,
     method: "POST",
   })

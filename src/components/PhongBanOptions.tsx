@@ -1,8 +1,10 @@
+import { PhongBan } from '@/models/phongBan.model'
 import { dropdown } from '@/services/phongBan.service'
 import { ProFormSelect } from '@ant-design/pro-form'
 import type { FC } from 'react'
 import { useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
+
 type SchoolFormFieldProps = {
   name?: string
   required?: boolean
@@ -10,9 +12,10 @@ type SchoolFormFieldProps = {
   label?: string
   form: any
   onChange?: (value: any) => void
+  byData?: PhongBan[]
 }
-const SchoolFormField: FC<SchoolFormFieldProps> = (props) => {
-  const { name, onChange, disabled, form } = props
+const PhongBanField: FC<SchoolFormFieldProps> = (props) => {
+  const { name, onChange, disabled, form, byData = [] } = props
   const [phongBanOptions, setPhongBanOptions] = useState<any[]>([
     {
       value: '',
@@ -22,15 +25,25 @@ const SchoolFormField: FC<SchoolFormFieldProps> = (props) => {
   useEffect(() => {
     const fetchSchool = async () => {
       try {
-        const response = await dropdown({}, {})
-        if (response && response.data) {
-          const option = response.data.map((item) => {
+        if (byData.length > 0) {
+          const option = byData.map((item) => {
             return {
               value: item.id,
               label: item.ten,
             }
           })
           setPhongBanOptions([...phongBanOptions, ...option])
+        } else {
+          const response = await dropdown({}, {})
+          if (response && response.data) {
+            const option = response.data.map((item) => {
+              return {
+                value: item.id,
+                label: item.ten,
+              }
+            })
+            setPhongBanOptions([...phongBanOptions, ...option])
+          }
         }
       } catch (error) {
         console.log('🚀 ~ file: index.tsx:27 ~ fetchSchool ~ error', error)
@@ -60,4 +73,4 @@ const SchoolFormField: FC<SchoolFormFieldProps> = (props) => {
     />
   )
 }
-export default SchoolFormField
+export default PhongBanField

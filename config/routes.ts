@@ -57,6 +57,11 @@ export default [
         path: '/users/job-titles',
         name: 'job-titles',
         component: './job_titles/',
+      },
+      {
+        path: '/users/user-list',
+        name: 'user-list',
+        component: './user/user-list/'
       }
     ]
   },

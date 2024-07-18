@@ -1,7 +1,6 @@
 ﻿/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { RequestOptions } from '@@/plugin-request/request';
 import type { RequestConfig } from '@umijs/max';
-import { message } from 'antd';
 
 // 错误处理方案： 错误类型
 enum ErrorShowType {
@@ -19,6 +18,20 @@ interface ResponseStructure {
   errorMessage?: string;
   showType?: ErrorShowType;
 }
+const TOKEN_NAME = 'access_token'
+
+const setToken = (token: string | null) => {
+  // cookies.set(TOKEN_NAME, token)
+  localStorage.setItem(TOKEN_NAME, token as string)
+}
+
+const getToken = () => {
+  return localStorage.getItem(TOKEN_NAME)
+}
+
+const authHeaderInterceptor = () => {
+  return { Authorization: `Bearer ${getToken()}` };
+};
 
 /**
  * @name 错误处理
@@ -41,6 +54,8 @@ export const errorConfig: RequestConfig = {
     },
     // Tiếp nhận xử lý!
     errorHandler: (error: any, opts: any) => {
+      if(error.response.data.code == 'INVALID_TOKEN')
+        window.location.href = '/user/login'
       throw error.response.data
     },
   },
@@ -48,9 +63,10 @@ export const errorConfig: RequestConfig = {
   // 请求拦截器
   requestInterceptors: [
     (config: RequestOptions) => {
-      // 拦截请求配置，进行个性化处理。
-      const url = config?.url?.concat('?token = 123');
-      return { ...config, url };
+      const url = config?.url
+      const authHeader = authHeaderInterceptor()
+
+      return { ...config, url, headers: { ...(config.headers || {}), ...authHeader } }
     },
   ],
 

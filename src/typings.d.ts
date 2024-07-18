@@ -17,3 +17,4 @@ declare module 'react-fittext';
 
 declare const REACT_APP_ENV: 'test' | 'dev' | 'pre' | false;
 declare const UMI_API_URL: string;
+declare const FORMAT_VN_TIME: string;

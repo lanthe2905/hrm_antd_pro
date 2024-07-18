@@ -54,4 +54,5 @@ export default {
   'menu.users.departments': "Phòng ban",
   'menu.users.job-titles': "Chức danh",
   'menu.users': "Nhân sự",
+  'menu.users.user-list': "Danh sách nhân sự"
 };
