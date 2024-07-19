@@ -129,7 +129,8 @@ const Employee = () => {
       dataIndex: ['ngay_sinh'],
       ellipsis: true,
       render: (_: any, record: any) => {
-        return record.ngay_sinh
+        const date = dayjs(record.ngay_sinh)
+        return date.isValid() ? date.format(FORMAT_VN_TIME) : ''
       },
       ...optionColumn,
     },
@@ -165,7 +166,7 @@ const Employee = () => {
             style={{ padding: 0 }}
             type="link"
             onClick={(e) => {
-              setCurrentUser(record)
+              // setCurrentUser(record)
               // setVisibileUpdate(true)
             }}
           >

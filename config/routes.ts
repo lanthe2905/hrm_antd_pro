@@ -46,7 +46,7 @@ export default [
   {
     name: 'users',
     path: '/users',
-    icon: 'dashboard',
+    // icon: 'dashboard',
     routes: [
       {
         path: '/users/departments',
