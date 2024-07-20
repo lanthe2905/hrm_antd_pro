@@ -20,6 +20,7 @@ interface BasicResponse<T> {
 interface BasicListResponse<T> {
   error?: string
   data?: T[]
+  message?: string
   meta: {
     total: number
     per_page: number

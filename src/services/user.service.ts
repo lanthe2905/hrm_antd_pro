@@ -37,3 +37,10 @@ export const createUser = async (payload: User) => {
     method: "POST",
   })
 }
+
+export const dropdownUser = async (payload: any) => {
+  return request<UserListResponse>(resource + "/dropdown", {
+    method: "GET",
+    params: payload,
+  })
+}

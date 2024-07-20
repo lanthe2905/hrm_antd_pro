@@ -54,5 +54,8 @@ export default {
   'menu.users.departments': "Phòng ban",
   'menu.users.job-titles': "Chức danh",
   'menu.users': "Nhân sự",
-  'menu.users.user-list': "Danh sách nhân sự"
+  'menu.users.user-list': "Danh sách nhân sự",
+  'menu.leaves': 'Quản lý phép',
+  'menu.leaves.index': 'Quản lý phép',
+  'menu.leaves.setting': "Cài đặt ngày phép"
 };

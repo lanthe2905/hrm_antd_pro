@@ -66,6 +66,22 @@ export default [
     ]
   },
   {
+    name: 'leaves',
+    path: "/leaves",
+    routes: [
+      {
+        name: 'index',
+        path: "/leaves",
+        component: './nghi-phep',
+      },
+      {
+        name: 'setting',
+        path: "/leaves/setting",
+        component: './nghi-phep',
+      }
+    ]
+  },
+  {
     path: '/dashboard',
     name: 'dashboard',
     icon: 'dashboard',
