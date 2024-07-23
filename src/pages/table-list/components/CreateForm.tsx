@@ -1,34 +1,39 @@
-import { addRule } from '@/services/ant-design-pro/api';
-import { PlusOutlined } from '@ant-design/icons';
-import { ActionType, ModalForm, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
-import { FormattedMessage, useIntl, useRequest } from '@umijs/max';
-import { Button, message } from 'antd';
-import { FC } from 'react';
+import { addRule } from '@/services/ant-design-pro/api'
+import { PlusOutlined } from '@ant-design/icons'
+import {
+  ActionType,
+  ModalForm,
+  ProFormText,
+  ProFormTextArea,
+} from '@ant-design/pro-components'
+import { FormattedMessage, useIntl, useRequest } from '@umijs/max'
+import { Button, message } from 'antd'
+import { FC } from 'react'
 
 interface CreateFormProps {
-  reload?: ActionType['reload'];
+  reload?: ActionType['reload']
 }
 
 const CreateForm: FC<CreateFormProps> = (props) => {
-  const { reload } = props;
+  const { reload } = props
 
-  const [messageApi, contextHolder] = message.useMessage();
+  const [messageApi, contextHolder] = message.useMessage()
   /**
    * @en-US International configuration
    * @zh-CN 国际化配置
    * */
-  const intl = useIntl();
+  const intl = useIntl()
 
   const { run, loading } = useRequest(addRule, {
     manual: true,
     onSuccess: () => {
-      messageApi.success('Added successfully');
-      reload?.();
+      messageApi.success('Added successfully')
+      reload?.()
     },
     onError: () => {
-      messageApi.error('Adding failed, please try again!');
+      messageApi.error('Adding failed, please try again!')
     },
-  });
+  })
 
   return (
     <>
@@ -46,9 +51,8 @@ const CreateForm: FC<CreateFormProps> = (props) => {
         width="400px"
         modalProps={{ okButtonProps: { loading } }}
         onFinish={async (value) => {
-          await run({ data: value as API.RuleListItem });
-
-          return true;
+          await run({ data: value as API.RuleListItem })
+          return true
         }}
       >
         <ProFormText
@@ -69,7 +73,7 @@ const CreateForm: FC<CreateFormProps> = (props) => {
         <ProFormTextArea width="md" name="desc" />
       </ModalForm>
     </>
-  );
-};
+  )
+}
 
-export default CreateForm;
+export default CreateForm

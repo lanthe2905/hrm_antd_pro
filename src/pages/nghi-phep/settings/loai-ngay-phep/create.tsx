@@ -1,4 +1,4 @@
-import { regexGetNumber, renderCurrency } from '@/util/common'
+import { getMessage, regexGetNumber, renderCurrency } from '@/util/common'
 import { PlusOutlined } from '@ant-design/icons'
 import {
   ModalForm,
@@ -48,12 +48,13 @@ export default (props: any) => {
         try {
           values.so_ngay_trong_nam = regexGetNumber(values.so_ngay_trong_nam)
           values.hs = regexGetNumber(values.hs)
-          message.success('Tạo loại ngày phép thành công')
-          reload()
           await create(values)
+          reload()
+          message.success('Tạo loại ngày phép thành công')
           return true
         } catch (error) {
           handleApiError(error, form, null)
+          return false
         }
       }}
     >
@@ -69,7 +70,6 @@ export default (props: any) => {
         <ProFormText
           width="md"
           name="so_ngay_trong_nam"
-          required={true}
           fieldProps={{
             onBlur: (e) => {
               form.setFieldValue(
@@ -78,6 +78,22 @@ export default (props: any) => {
               )
             },
           }}
+          rules={[
+            {
+              required: true,
+              message: getMessage('required', 'Số ngày phép'),
+            },
+            {
+              validator(rule, value, callback) {
+                if (value && value >= 0 && value <= 365) {
+                  return Promise.resolve()
+                }
+                return Promise.reject(
+                  getMessage('rangeError', 'Số ngày phép', 0, 365),
+                )
+              },
+            },
+          ]}
           label="Số ngày phép"
           placeholder="Số ngày phép"
         />

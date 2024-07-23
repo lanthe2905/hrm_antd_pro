@@ -1,4 +1,4 @@
-import { UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined } from '@ant-design/icons'
 import {
   ProForm,
   ProFormDependency,
@@ -6,25 +6,29 @@ import {
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
-} from '@ant-design/pro-components';
-import { useRequest } from '@umijs/max';
-import { Button, Input, message, Upload } from 'antd';
-import React from 'react';
-import { queryCity, queryCurrent, queryProvince } from '../service';
-import useStyles from './index.style';
+} from '@ant-design/pro-components'
+import { useRequest } from '@umijs/max'
+import { Button, Input, message, Upload } from 'antd'
+import React from 'react'
+import { queryCity, queryCurrent, queryProvince } from '../service'
+import useStyles from './index.style'
 
-const validatorPhone = (rule: any, value: string[], callback: (message?: string) => void) => {
+const validatorPhone = (
+  rule: any,
+  value: string[],
+  callback: (message?: string) => void,
+) => {
   if (!value[0]) {
-    callback('Please input your area code!');
+    callback('Please input your area code!')
   }
   if (!value[1]) {
-    callback('Please input your phone number!');
+    callback('Please input your phone number!')
   }
-  callback();
-};
+  callback()
+}
 
 const BaseView: React.FC = () => {
-  const { styles } = useStyles();
+  const { styles } = useStyles()
   // 头像组件 方便以后独立，增加裁剪之类的功能
   const AvatarView = ({ avatar }: { avatar: string }) => (
     <>
@@ -41,23 +45,24 @@ const BaseView: React.FC = () => {
         </div>
       </Upload>
     </>
-  );
+  )
   const { data: currentUser, loading } = useRequest(() => {
-    return queryCurrent();
-  });
+    return queryCurrent()
+  })
   const getAvatarURL = () => {
     if (currentUser) {
       if (currentUser.avatar) {
-        return currentUser.avatar;
+        return currentUser.avatar
       }
-      const url = 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png';
-      return url;
+      const url =
+        'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
+      return url
     }
-    return '';
-  };
+    return ''
+  }
   const handleFinish = async () => {
-    message.success('更新基本信息成功');
-  };
+    message.success('更新基本信息成功')
+  }
   return (
     <div className={styles.baseView}>
       {loading ? null : (
@@ -149,9 +154,9 @@ const BaseView: React.FC = () => {
                         return {
                           label: item.name,
                           value: item.id,
-                        };
-                      });
-                    });
+                        }
+                      })
+                    })
                   }}
                 />
                 <ProFormDependency name={['province']}>
@@ -173,19 +178,21 @@ const BaseView: React.FC = () => {
                         className={styles.item}
                         request={async () => {
                           if (!province?.key) {
-                            return [];
+                            return []
                           }
-                          return queryCity(province.key || '').then(({ data }) => {
-                            return data.map((item) => {
-                              return {
-                                label: item.name,
-                                value: item.id,
-                              };
-                            });
-                          });
+                          return queryCity(province.key || '').then(
+                            ({ data }) => {
+                              return data.map((item) => {
+                                return {
+                                  label: item.name,
+                                  value: item.id,
+                                }
+                              })
+                            },
+                          )
                         }}
                       />
-                    );
+                    )
                   }}
                 </ProFormDependency>
               </ProForm.Group>
@@ -224,6 +231,6 @@ const BaseView: React.FC = () => {
         </>
       )}
     </div>
-  );
-};
-export default BaseView;
+  )
+}
+export default BaseView

@@ -158,7 +158,7 @@ export default defineConfig({
   requestRecord: {},
   define: {
     UMI_API_URL: 'http://localhost:3333',
-    FORMAT_VN_TIME: 'MM/DD/YYYY',
+    FORMAT_VN_TIME: 'DD/MM/YYYY',
     LANGUAGE_ICON: {
       'vi-VN': '🇻🇳',
       'en-US': '🇺🇸',

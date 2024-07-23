@@ -1,4 +1,4 @@
-import { regexGetNumber, renderCurrency } from '@/util/common'
+import { getMessage, regexGetNumber, renderCurrency } from '@/util/common'
 import {
   ModalForm,
   ProForm,
@@ -9,7 +9,6 @@ import { Form, message } from 'antd'
 import { update } from '@/services/loaiNghiPhep.services'
 import { handleApiError } from '@/util/handleError'
 import { EditOutlined } from '@ant-design/icons'
-import { useEffect } from 'react'
 
 const waitTime = (time: number = 100) => {
   return new Promise((resolve) => {
@@ -37,6 +36,11 @@ export default (props: any) => {
           <EditOutlined /> Cập nhật
         </a>
       }
+      onOpenChange={() => {
+        setTimeout(() => {
+          form.resetFields()
+        }, 0)
+      }}
       initialValues={values}
       form={form}
       autoFocusFirstInput
@@ -49,12 +53,13 @@ export default (props: any) => {
         try {
           values.so_ngay_trong_nam = regexGetNumber(values.so_ngay_trong_nam)
           values.hs = regexGetNumber(values.hs)
-          message.success('Cập nhật ngày phép thành công')
-          reload()
           await update(values)
+          reload()
+          message.success('Cập nhật ngày phép thành công')
           return true
         } catch (error) {
           handleApiError(error, form, null)
+          return false
         }
       }}
     >
@@ -74,7 +79,22 @@ export default (props: any) => {
         <ProFormText
           width="md"
           name="so_ngay_trong_nam"
-          required={true}
+          rules={[
+            {
+              required: true,
+              message: getMessage('required', 'Số ngày phép'),
+            },
+            {
+              validator(rule, value, callback) {
+                if (value && value >= 0 && value <= 365) {
+                  return Promise.resolve()
+                }
+                return Promise.reject(
+                  getMessage('rangeError', 'Số ngày phép', 0, 365),
+                )
+              },
+            },
+          ]}
           fieldProps={{
             onBlur: (e) => {
               form.setFieldValue(
