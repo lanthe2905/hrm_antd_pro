@@ -77,7 +77,7 @@ export default [
       {
         name: 'setting',
         path: "/leaves/setting",
-        component: './nghi-phep',
+        component: './nghi-phep/settings/',
       }
     ]
   },

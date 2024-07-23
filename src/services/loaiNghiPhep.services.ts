@@ -10,19 +10,20 @@ const resource = '/api/leave-types'
 const getList = async (params: any): Promise<LoaiNghiPhepListResponse> => {
   return await request<LoaiNghiPhepListResponse>(resource,{
     params: params,
+    method: "GET",
   })
 }
 
 const create = async (params: any) => {
   return await request<LoaiNghiPhepResponse>(resource, {
-    param: params,
+    data: params,
     method: 'POST',
   })
 }
 
 const update = async (params: any) => {
   return await request<LoaiNghiPhepResponse>(resource + '/' + params.id,{
-    param: params,
+    data: params,
     method: 'PUT',
   })
 }
