@@ -36,6 +36,13 @@ export const approveOrReject = async (payload: Partial<NghiPhep>) => {
 export const create = async (payload: NghiPhep) => {
   return await request<NghiPhepsResponse>(resource, {
     method: 'POST',
-    params: payload,
+    data: payload,
   });
 } 
+
+export const update = async (payload: NghiPhep) => {
+  return await request<NghiPhepsResponse>(resource + "/" + payload.id, {
+    method: 'PUT',
+    data: payload,
+  })
+}

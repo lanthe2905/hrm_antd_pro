@@ -1,45 +1,58 @@
 import { memo } from 'react'
-import { Button, Form, Input, message, Typography } from 'antd'
-import * as nghiPhepApi from '@/services/nghiphep.service'
+import { Form, Input, Typography } from 'antd'
+import * as Api from '@/services/nghiphep.service'
 import { getMessage } from '@/util/common'
 import { handleApiError } from '@/util/handleError'
 import {
   ModalForm,
   ProFormDatePicker,
   ProFormSelect,
+  ProFormText,
 } from '@ant-design/pro-components'
-import { PlusOutlined } from '@ant-design/icons'
-import { waitTime } from '../departments'
+import { EditOutlined } from '@ant-design/icons'
+import type { NghiPhep } from '@/models/nghiPhep.model'
+import dayjs from 'dayjs'
+import { flushSync } from 'react-dom'
 
 type Props = {
+  values: NghiPhep
   userOptions: { label: string; value: string }[]
   loaiNghiPhepOptions: { label: string; value: string }[]
   resetTable: Function
 }
 
-function CreateLeave(props: Props) {
-  const { resetTable, userOptions, loaiNghiPhepOptions } = props
+function EditLeave(props: Props) {
+  const { values, resetTable, userOptions, loaiNghiPhepOptions } = props
   const [form] = Form.useForm<any>()
+  let tu_ngay = dayjs(values.tu_ngay)
+  let den_ngay = dayjs(values.den_ngay)
 
   return (
     <>
       <ModalForm
-        title={<Typography.Title level={4}>Thêm nghỉ phép</Typography.Title>}
+        title={
+          <Typography.Title level={4}>Cập nhật nghỉ phép</Typography.Title>
+        }
+        initialValues={{
+          ...values,
+          tu_ngay: undefined,
+          den_ngay: undefined,
+        }}
         form={form}
         trigger={
-          <Button type="primary">
-            <PlusOutlined /> Thêm mới
-          </Button>
+          <a>
+            <EditOutlined /> Cập nhật
+          </a>
         }
+        onOpenChange={(open) => {
+          open && setTimeout(() => form.resetFields())
+        }}
         onFinish={async (values) => {
-          await waitTime(100)
           try {
-            const data = form.getFieldsValue()
-            console.log(data)
-            await nghiPhepApi.create(data)
+            let data = form.getFieldsValue()
+            await Api.update(data)
             resetTable()
             form.resetFields()
-            message.success('Tạo loại ngày phép thành công')
             return true
           } catch (error) {
             handleApiError(error, form, null)
@@ -47,6 +60,17 @@ function CreateLeave(props: Props) {
           }
         }}
       >
+        <ProFormText
+          name="id"
+          hidden={true}
+          rules={[
+            {
+              required: true,
+              message: getMessage('required', 'id'),
+            },
+          ]}
+        ></ProFormText>
+
         <ProFormSelect
           name="id_nhan_vien"
           label="Nhân viên"
@@ -79,6 +103,7 @@ function CreateLeave(props: Props) {
         <ProFormDatePicker
           name="tu_ngay"
           label="Từ ngày"
+          initialValue={tu_ngay.isValid() ? tu_ngay : undefined}
           fieldProps={{
             format: 'DD/MM/YYYY HH:mm',
             showTime: { format: 'HH:mm' },
@@ -95,6 +120,7 @@ function CreateLeave(props: Props) {
         <ProFormDatePicker
           name="den_ngay"
           label="Đến ngày"
+          initialValue={den_ngay.isValid() ? den_ngay : undefined}
           fieldProps={{
             format: 'DD/MM/YYYY HH:mm',
             showTime: { format: 'HH:mm' },
@@ -106,14 +132,18 @@ function CreateLeave(props: Props) {
               required: true,
               message: getMessage('required', 'Đến ngày'),
             },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (value > getFieldValue('tu_ngay')) {
-                  return Promise.resolve()
-                }
-                return Promise.reject(new Error('Đến ngày phải lớn hơn!'))
-              },
-            }),
+            ({ getFieldValue }) => {
+              return {
+                validator(_, value) {
+                  const tuNgay = dayjs(getFieldValue('tu_ngay'))
+                  const denNgay = dayjs(getFieldValue('den_ngay'))
+                  if (denNgay > tuNgay) {
+                    return Promise.resolve()
+                  }
+                  return Promise.reject(new Error('Đến ngày phải lớn hơn!'))
+                },
+              }
+            },
           ]}
         ></ProFormDatePicker>
 
@@ -145,4 +175,4 @@ function CreateLeave(props: Props) {
   )
 }
 
-export default memo(CreateLeave)
+export default memo(EditLeave)

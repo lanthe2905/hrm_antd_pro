@@ -1,4 +1,5 @@
-import { useState, useEffect, useReducer, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
+import { flushSync } from 'react-dom'
 import {
   Space,
   Popconfirm,
@@ -6,17 +7,13 @@ import {
   Typography,
   Dropdown,
   MenuProps,
-  Button,
   Badge,
 } from 'antd'
 import {
-  EditOutlined,
   DeleteOutlined,
   DownOutlined,
   CheckOutlined,
   CloseOutlined,
-  PlusOutlined,
-  SettingOutlined,
 } from '@ant-design/icons'
 import {
   ActionType,
@@ -25,17 +22,17 @@ import {
   ProFormInstance,
   ProColumns,
 } from '@ant-design/pro-components'
-import { useNavigate } from 'umi'
-import * as NghiPhepService from '@/services/nghiphep.service'
 import dayjs from 'dayjs'
-
 import CreateLeave from './create'
-// import UpdateLeave from './update'
+import UpdateLeave from './edit'
+import socket from '@/socket'
+import { handleApiError } from '@/util/handleError'
+import * as NghiPhepService from '@/services/nghiphep.service'
+import * as UserApi from '@/services/user.service'
+import * as LoaiNghiPhepApi from '@/services/loaiNghiPhep.services'
 
 // import LeaveSetting from './LeaveSetting'
-import { handleApiError } from '@/util/handleError'
 import type * as NghiPhepModel from '@/models/nghiPhep.model'
-import { flushSync } from 'react-dom'
 
 const { Text, Title } = Typography
 
@@ -65,15 +62,11 @@ const renderBadge = (count: number, active = false) => {
 }
 
 function NghiPhep() {
-  const navigate = useNavigate()
   const formRef = useRef<ProFormInstance>()
   const actionRef = useRef<ActionType>()
-  const [activeKey, setActiveKey] = useState<React.Key>('tab1')
-  const [visibleCreateDialog, setVisibleCreateDialog] = useState(false)
-  const [visibleUpdateDialog, setVisibleUpdateDialog] = useState(false)
-  const [nghiPhepSelected, setNghiPhepSelected] =
-    useState<NghiPhepModel.NghiPhep>({} as NghiPhepModel.NghiPhep)
-
+  const [activeKey, setActiveKey] = useState<React.Key>('cho_xu_ly')
+  const [userOptions, setUserOptions] = useState<any[]>([])
+  const [loaiNghiPhepOptions, setLoaiNghiPhepOptions] = useState<any[]>([])
   const [notification, setNotification] = useState({
     cho_xu_ly: 0,
     da_duyet: 0,
@@ -96,13 +89,23 @@ function NghiPhep() {
     }
   }
 
-  const resetTable = () => {}
+  const resetTable = () => {
+    actionRef.current?.reload()
+  }
 
   const columns = useMemo<ProColumns<NghiPhepModel.NghiPhep>[]>(() => {
     return [
       {
         dataIndex: 'id',
         key: 'id',
+        hidden: true,
+        search: {
+          transform: (value) => {
+            return {
+              search: value,
+            }
+          },
+        },
       },
       {
         title: 'Nhân viên',
@@ -114,25 +117,29 @@ function NghiPhep() {
         title: 'Thông tin',
         search: false,
         dataIndex: 'information',
-        render: (_: string, record: NghiPhepModel.NghiPhep) => (
-          <>
-            <p>
-              {' '}
-              <Text strong> Loại nghỉ phép:</Text> {record?.loaiNghiPhep?.ten}
-            </p>
-            <p>
-              {' '}
-              <Text strong> Ngày:</Text>{' '}
-              {new Date(record?.tu_ngay).toLocaleDateString()} -{' '}
-              {new Date(record?.den_ngay).toLocaleDateString()}
-            </p>
-            <p>
-              {' '}
-              <Text strong> Số ngày:</Text>{' '}
-              {dateDiff(record.tu_ngay, record.den_ngay)}
-            </p>
-          </>
-        ),
+        render: (_: string, record: NghiPhepModel.NghiPhep) => {
+          let tuNgay = dayjs(record?.tu_ngay)
+          let denNgay = dayjs(record?.den_ngay)
+          return (
+            <>
+              <p>
+                {' '}
+                <Text strong> Loại nghỉ phép:</Text> {record?.loaiNghiPhep?.ten}
+              </p>
+              <p>
+                {' '}
+                <Text strong> Ngày:</Text>{' '}
+                {tuNgay.isValid() && tuNgay.format(FORMAT_VN_TIME)} -{' '}
+                {denNgay.isValid() && denNgay.format(FORMAT_VN_TIME)}
+              </p>
+              <p>
+                {' '}
+                <Text strong> Số ngày:</Text>{' '}
+                {tuNgay.isValid() && tuNgay.diff(denNgay, 'day') * -1 + 1}
+              </p>
+            </>
+          )
+        },
       },
       {
         title: 'Lý do',
@@ -140,7 +147,6 @@ function NghiPhep() {
         search: false,
         key: 'li_do',
       },
-
       {
         title: 'Ngày tạo',
         dataIndex: 'created_at',
@@ -151,21 +157,20 @@ function NghiPhep() {
         },
       },
       {
-        hidden: activeKey !== 'chua_duyet',
+        hidden: activeKey !== 'cho_xu_ly',
         dataIndex: 'action',
         title: 'Hành động',
         search: false,
         key: 'action',
         render: (_: string, record: NghiPhepModel.NghiPhep) => (
           <Space size="middle">
-            <a
-              onClick={(e) => {
-                setNghiPhepSelected(record)
-                setVisibleUpdateDialog(true)
-              }}
-            >
-              <EditOutlined /> Sửa
-            </a>
+            <UpdateLeave
+              values={record}
+              userOptions={userOptions}
+              loaiNghiPhepOptions={loaiNghiPhepOptions}
+              resetTable={resetTable}
+              key={'update_leave_' + record.id}
+            />
             <a>
               <Popconfirm
                 title="Xoá"
@@ -213,50 +218,68 @@ function NghiPhep() {
               }}
             >
               <a onClick={(e) => e.preventDefault()}>
-                More <DownOutlined />
+                Trạng thái <DownOutlined />
               </a>
             </Dropdown>
           </Space>
         ),
       },
     ] as ProColumns<NghiPhepModel.NghiPhep>[]
-  }, [activeKey])
+  }, [activeKey, userOptions, loaiNghiPhepOptions])
 
   useEffect(() => {
     //Lấy mặc chưa duyệt ở lần đầu render
-    // socket.emit('getThongBaoNghiPhep', function (response: { data: any }) {
-    //   const counter = { ...notification }
-    //   counter.cho_xu_ly = 0
-    //   counter.da_duyet = 0
-    //   counter.da_tu_choi = 0
-    //   response.data.forEach((item: any) => {
-    //     if (!item['trang_thai']) return
-    //     counter[item['trang_thai'] as keyof typeof notification] = item.count ?? 0
-    //   })
-    //   setNotification(counter)
-    // })
-    // if (!socket.hasListeners('sendThongBaoNghiPhep')) {
-    //   socket.on('sendThongBaoNghiPhep', function (response: { data: any }) {
-    //     const counter = { ...notification }
-    //     counter.cho_xu_ly = 0
-    //     counter.da_duyet = 0
-    //     counter.da_tu_choi = 0
-    //     response.data.forEach((item: any) => {
-    //       if (!item['trang_thai']) return
-    //       counter[item['trang_thai'] as keyof typeof notification] = item.count ?? 0
-    //     })
-    //     setNotification(counter)
-    //   })
-    // }
+    socket.emit('getThongBaoNghiPhep', function (response: { data: any }) {
+      const counter = { ...notification }
+      counter.cho_xu_ly = 0
+      counter.da_duyet = 0
+      counter.da_tu_choi = 0
+      response.data.forEach((item: any) => {
+        if (!item['trang_thai']) return
+        counter[item['trang_thai'] as keyof typeof notification] =
+          item.count ?? 0
+      })
+      setNotification(counter)
+    })
+    if (!socket.hasListeners('sendThongBaoNghiPhep')) {
+      socket.on('sendThongBaoNghiPhep', function (response: { data: any }) {
+        const counter = { ...notification }
+        counter.cho_xu_ly = 0
+        counter.da_duyet = 0
+        counter.da_tu_choi = 0
+        response.data.forEach((item: any) => {
+          if (!item['trang_thai']) return
+          counter[item['trang_thai'] as keyof typeof notification] =
+            item.count ?? 0
+        })
+        setNotification(counter)
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    //Query lấy dữ liệu dropdown user và loại nghỉ phép
+    const handle = async () => {
+      const rsUser = await UserApi.dropdownUser({ search: '' })
+      setUserOptions(
+        rsUser.data?.map((user) => ({
+          value: user.id,
+          label: user.ho_va_ten,
+        })) ?? [],
+      )
+      const rsLoaiNghiPhep = await LoaiNghiPhepApi.dropDown({ search: '' })
+      setLoaiNghiPhepOptions(
+        rsLoaiNghiPhep.data?.map((item) => ({
+          label: item.ten,
+          value: item.id,
+        })) ?? [],
+      )
+    }
+    handle()
   }, [])
 
   return (
     <>
-      <CreateLeave
-        accessor={[visibleCreateDialog, setVisibleCreateDialog]}
-        resetTable={resetTable}
-      ></CreateLeave>
-
       <PageContainer>
         <ProTable<NghiPhepModel.NghiPhep>
           actionRef={actionRef}
@@ -296,7 +319,6 @@ function NghiPhep() {
             menu: {
               type: 'tab',
               activeKey: activeKey,
-
               items: [
                 {
                   key: 'cho_xu_ly',
@@ -344,17 +366,11 @@ function NghiPhep() {
             },
           }}
           toolBarRender={() => [
-            <Button
-              key="button"
-              icon={<PlusOutlined />}
-              onClick={() => {
-                // actionRef.current?.reload()
-                setVisibleCreateDialog(true)
-              }}
-              type="primary"
-            >
-              Thêm mơi
-            </Button>,
+            <CreateLeave
+              loaiNghiPhepOptions={loaiNghiPhepOptions}
+              userOptions={userOptions}
+              resetTable={resetTable}
+            ></CreateLeave>,
           ]}
         />
       </PageContainer>
