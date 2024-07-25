@@ -10,7 +10,7 @@
  * @param icon 配置路由的图标，取值参考 https://ant.design/components/icon-cn， 注意去除风格后缀和大小写，如想要配置图标为 <StepBackwardOutlined /> 则取值应为 stepBackward 或 StepBackward，如想要配置图标为 <UserOutlined /> 则取值应为 user 或者 User
  * @doc https://umijs.org/docs/guides/routes
  */
-import { SettingOutlined } from "@ant-design/icons";
+import { SettingOutlined } from '@ant-design/icons'
 export default [
   {
     path: '/user',
@@ -62,25 +62,25 @@ export default [
       {
         path: '/users/user-list',
         name: 'user-list',
-        component: './user/user-list/'
-      }
-    ]
+        component: './user/user-list/',
+      },
+    ],
   },
   {
     name: 'leaves',
-    path: "/leaves",
+    path: '/leaves',
     routes: [
       {
         name: 'index',
-        path: "/leaves/nghi-phep",
+        path: '/leaves/nghi-phep',
         component: './nghi-phep',
       },
       {
         name: 'setting',
-        path: "/leaves/setting",
+        path: '/leaves/setting',
         component: './nghi-phep/settings/',
-      }
-    ]
+      },
+    ],
   },
   {
     name: 'salary',
@@ -88,10 +88,14 @@ export default [
     routes: [
       {
         name: 'cham-cong',
-        path: "/salary/cham-cong/",
-        component: './cham-cong/'
+        path: '/salary/cham-cong/',
+        component: './cham-cong/',
       },
-    ]
+      {
+        path: '/salary/them-cham-cong',
+        component: './cham-cong/themChamCong',
+      },
+    ],
   },
   {
     path: '/dashboard',
@@ -119,19 +123,6 @@ export default [
         icon: 'smile',
         path: '/dashboard/workplace',
         component: './dashboard/workplace',
-      },
-    ],
-  },
-  {
-    name: 'Chấm công',
-    icon: 'calendar',
-    path: '/cham-cong',
-    routes: [
-
-      {
-        name: 'Đơn giá sản phẩm lái tàu',
-        path: '/settings/don-gia-sp',
-        component: './settings/lai-tau',
       },
     ],
   },
@@ -321,14 +312,13 @@ export default [
     ],
   },
   {
-    name: 'Cài đặt',
+    name: 'setting',
     icon: 'setting',
-    path: '/settings',
+    path: '/setting',
     routes: [
-
       {
-        name: 'Đơn giá sản phẩm lái tàu',
-        path: '/settings/don-gia-sp',
+        name: 'don-gia-sp-lai-tau',
+        path: '/setting/don-gia-sp',
         component: './settings/lai-tau',
       },
     ],
@@ -341,4 +331,4 @@ export default [
     component: '404',
     path: '/*',
   },
-];
+]

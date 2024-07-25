@@ -60,4 +60,6 @@ export default {
   'menu.leaves.setting': "Cài đặt ngày phép",
   'menu.salary': 'Tính lương',
   'menu.salary.cham-cong': 'Chấm công',
+  'menu.setting':"Cài đặt", 
+  'menu.setting.don-gia-sp-lai-tau': 'Đơn giá sản phẩm lái tàu'
 };

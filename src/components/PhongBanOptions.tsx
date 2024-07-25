@@ -10,12 +10,12 @@ type SchoolFormFieldProps = {
   required?: boolean
   disabled?: boolean
   label?: string
-  form: any
+  form?: any
   onChange?: (value: any) => void
   byData?: PhongBan[]
 }
 const PhongBanField: FC<SchoolFormFieldProps> = (props) => {
-  const { name, onChange, disabled, form, byData = [] } = props
+  const { name, onChange, disabled, form, byData = [], label } = props
   const [phongBanOptions, setPhongBanOptions] = useState<any[]>([
     {
       value: '',
@@ -23,15 +23,16 @@ const PhongBanField: FC<SchoolFormFieldProps> = (props) => {
     },
   ])
   useEffect(() => {
-    const fetchSchool = async () => {
+    const fetchPhongBan = async () => {
       try {
         if (byData.length > 0) {
-          const option = byData.map((item) => {
+          const option = byData.map((item: PhongBan) => {
             return {
               value: item.id,
-              label: item.ten,
+              label: item.ma_bp + ' - ' + item.ten,
             }
           })
+          console.log(option)
           setPhongBanOptions([...phongBanOptions, ...option])
         } else {
           const response = await dropdown({}, {})
@@ -39,24 +40,24 @@ const PhongBanField: FC<SchoolFormFieldProps> = (props) => {
             const option = response.data.map((item) => {
               return {
                 value: item.id,
-                label: item.ten,
+                label: item.ma_bp + ' - ' + item.ten,
               }
             })
             setPhongBanOptions([...phongBanOptions, ...option])
           }
         }
       } catch (error) {
-        console.log('🚀 ~ file: index.tsx:27 ~ fetchSchool ~ error', error)
+        console.log('🚀 ~ file: index.tsx:27 ~ fetchPhongBan ~ error', error)
       }
     }
-    fetchSchool()
+    fetchPhongBan()
   }, [])
 
   return (
     <ProFormSelect
       name={name}
+      label={label ?? ''}
       disabled={disabled}
-      showSearch
       allowClear={false}
       options={phongBanOptions}
       fieldProps={{

@@ -43,19 +43,13 @@ const Search: FC<SearchProps> = () => {
   }
 
   return (
-    <div
-      style={{
-        background: '#F5F7FA',
-      }}
+    <PageContainer
+      tabList={tabList}
+      tabActiveKey={activeTabKey}
+      onTabChange={handleTabChange}
     >
-      <PageContainer
-        tabList={tabList}
-        tabActiveKey={activeTabKey}
-        onTabChange={handleTabChange}
-      >
-        {renderChildrenByTabKey(activeTabKey)}
-      </PageContainer>
-    </div>
+      {renderChildrenByTabKey(activeTabKey)}
+    </PageContainer>
   )
 }
 
