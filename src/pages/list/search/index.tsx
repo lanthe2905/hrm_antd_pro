@@ -1,11 +1,11 @@
-import { PageContainer } from '@ant-design/pro-components';
-import { history, Outlet, useLocation, useMatch } from '@umijs/max';
-import { Input } from 'antd';
-import type { FC } from 'react';
+import { PageContainer } from '@ant-design/pro-components'
+import { history, Outlet, useLocation, useMatch } from '@umijs/max'
+import { Input } from 'antd'
+import type { FC } from 'react'
 
 type SearchProps = {
-  children?: React.ReactNode;
-};
+  children?: React.ReactNode
+}
 
 const tabList = [
   {
@@ -20,41 +20,45 @@ const tabList = [
     key: 'applications',
     tab: '应用',
   },
-];
+]
 
 const Search: FC<SearchProps> = () => {
-  const location = useLocation();
-  let match = useMatch(location.pathname);
+  const location = useLocation()
+  let match = useMatch(location.pathname)
   const handleTabChange = (key: string) => {
     const url =
-      match?.pathname === '/' ? '' : match?.pathname.substring(0, match.pathname.lastIndexOf('/'));
+      match?.pathname === '/'
+        ? ''
+        : match?.pathname.substring(0, match.pathname.lastIndexOf('/'))
     switch (key) {
       case 'articles':
-        history.push(`${url}/articles`);
-        break;
+        history.push(`${url}/articles`)
+        break
       case 'applications':
-        history.push(`${url}/applications`);
-        break;
+        history.push(`${url}/applications`)
+        break
       case 'projects':
-        history.push(`${url}/projects`);
-        break;
+        history.push(`${url}/projects`)
+        break
       default:
-        break;
+        break
     }
-  };
+  }
 
   const handleFormSubmit = (value: string) => {
     // eslint-disable-next-line no-console
-    console.log(value);
-  };
+    console.log(value)
+  }
 
   const getTabKey = () => {
-    const tabKey = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);
+    const tabKey = location.pathname.substring(
+      location.pathname.lastIndexOf('/') + 1,
+    )
     if (tabKey && tabKey !== '/') {
-      return tabKey;
+      return tabKey
     }
-    return 'articles';
-  };
+    return 'articles'
+  }
 
   return (
     <PageContainer
@@ -72,10 +76,8 @@ const Search: FC<SearchProps> = () => {
       tabList={tabList}
       tabActiveKey={getTabKey()}
       onTabChange={handleTabChange}
-    >
-      <Outlet />
-    </PageContainer>
-  );
-};
+    ></PageContainer>
+  )
+}
 
-export default Search;
+export default Search

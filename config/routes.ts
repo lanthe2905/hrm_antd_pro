@@ -71,7 +71,7 @@ export default [
     routes: [
       {
         name: 'index',
-        path: "/leaves",
+        path: "/leaves/nghi-phep",
         component: './nghi-phep',
       },
       {
@@ -79,6 +79,17 @@ export default [
         path: "/leaves/setting",
         component: './nghi-phep/settings/',
       }
+    ]
+  },
+  {
+    name: 'salary',
+    path: '/salary',
+    routes: [
+      {
+        name: 'cham-cong',
+        path: "/salary/cham-cong/",
+        component: './cham-cong/'
+      },
     ]
   },
   {

@@ -57,5 +57,7 @@ export default {
   'menu.users.user-list': "Danh sách nhân sự",
   'menu.leaves': 'Quản lý phép',
   'menu.leaves.index': 'Quản lý phép',
-  'menu.leaves.setting': "Cài đặt ngày phép"
+  'menu.leaves.setting': "Cài đặt ngày phép",
+  'menu.salary': 'Tính lương',
+  'menu.salary.cham-cong': 'Chấm công',
 };
