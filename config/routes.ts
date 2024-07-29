@@ -10,6 +10,7 @@
  * @param icon 配置路由的图标，取值参考 https://ant.design/components/icon-cn， 注意去除风格后缀和大小写，如想要配置图标为 <StepBackwardOutlined /> 则取值应为 stepBackward 或 StepBackward，如想要配置图标为 <UserOutlined /> 则取值应为 user 或者 User
  * @doc https://umijs.org/docs/guides/routes
  */
+import component from '@/locales/en-US/component'
 import { SettingOutlined } from '@ant-design/icons'
 export default [
   {
@@ -84,15 +85,19 @@ export default [
   },
   {
     name: 'salary',
-    path: '/salary',
+    path: '/tinh-luong',
     routes: [
       {
         name: 'cham-cong',
-        path: '/salary/cham-cong/',
+        path: '/tinh-luong/cham-cong/',
         component: './cham-cong/',
       },
       {
-        path: '/salary/them-cham-cong',
+        path: '/tinh-luong/cham-cong-v1/',
+        component: './Timekeeping/',
+      },
+      {
+        path: '/tinh-luong/them-cham-cong',
         component: './cham-cong/themChamCong',
       },
     ],
@@ -320,6 +325,11 @@ export default [
         name: 'don-gia-sp-lai-tau',
         path: '/setting/don-gia-sp',
         component: './settings/lai-tau',
+      },
+      {
+        name: 'ki-hieu',
+        path: '/setting/ki-hieu',
+        component: './settings/ki-hieu/',
       },
     ],
   },

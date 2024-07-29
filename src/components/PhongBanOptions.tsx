@@ -13,9 +13,18 @@ type SchoolFormFieldProps = {
   form?: any
   onChange?: (value: any) => void
   byData?: PhongBan[]
+  styles?: React.CSSProperties
 }
 const PhongBanField: FC<SchoolFormFieldProps> = (props) => {
-  const { name, onChange, disabled, form, byData = [], label } = props
+  const {
+    name,
+    onChange,
+    disabled,
+    form,
+    byData = [],
+    label,
+    styles = {},
+  } = props
   const [phongBanOptions, setPhongBanOptions] = useState<any[]>([
     {
       value: '',
@@ -32,7 +41,6 @@ const PhongBanField: FC<SchoolFormFieldProps> = (props) => {
               label: item.ma_bp + ' - ' + item.ten,
             }
           })
-          console.log(option)
           setPhongBanOptions([...phongBanOptions, ...option])
         } else {
           const response = await dropdown({}, {})
@@ -60,13 +68,14 @@ const PhongBanField: FC<SchoolFormFieldProps> = (props) => {
       disabled={disabled}
       allowClear={false}
       options={phongBanOptions}
+      style={styles}
       fieldProps={{
         onChange: (value) => {
           if (onChange) {
             flushSync(() => {
               onChange(value)
             })
-            form.submit()
+            form?.submit()
           }
         },
       }}
