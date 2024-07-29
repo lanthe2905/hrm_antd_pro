@@ -11,11 +11,10 @@ import {
 import { Button, Space } from 'antd'
 import PhongbanOptions from '@/components/PhongBanOptions'
 import { getData } from '@/services/chamCong.service'
-import KhoiLamLuongOptions from '@/components/KhoiLamluongOptions'
 import type { ChamCongv2 } from '@/models/chamCong-V2.model'
 import dayjs from 'dayjs'
 
-const Articles: FC = () => {
+const KhoiSC: FC = () => {
   const navigate = useNavigate()
   const formRef = useRef<ProFormInstance>()
   const actionRef = useRef<ActionType>()
@@ -57,20 +56,6 @@ const Articles: FC = () => {
           <PhongbanOptions
             name={'id_bo_phan'}
             form={formRef.current}
-            {...config}
-          />
-        )
-      },
-    },
-    {
-      hideInSetting: true,
-      hidden: true,
-      dataIndex: 'khoi_ll',
-      renderFormItem: (item, config) => {
-        return (
-          <KhoiLamLuongOptions
-            exceps={['SC', 'LM']}
-            name={'khoi_ll'}
             {...config}
           />
         )
@@ -145,11 +130,12 @@ const Articles: FC = () => {
         return <>{isNaN(_) == false ? Number(_)?.toLocaleString('en-US') : _}</>
       },
     },
-    // {
-    //   title: 'Giờ SP',
-    //   dataIndex: ['gio_san_pham'],
-    //   key: 'gio_sp',
-    // },
+    {
+      title: 'Giờ SP',
+      dataIndex: ['gio_san_pham'],
+      search: false,
+      key: 'gio_sp',
+    },
     {
       title: 'Lương gián tiếp công',
       dataIndex: 'luong_gian_tiep_cong',
@@ -204,10 +190,10 @@ const Articles: FC = () => {
         formRef={formRef}
         actionRef={actionRef}
         columns={columns}
+        params={{
+          khoi_ll: ['SC'],
+        }}
         request={async (params) => {
-          if (!params?.khoi_ll) {
-            params.khoi_ll = ['GT-BT', 'BTC']
-          }
           return getData(params)
         }}
         search={{
@@ -229,4 +215,4 @@ const Articles: FC = () => {
   )
 }
 
-export default Articles
+export default KhoiSC

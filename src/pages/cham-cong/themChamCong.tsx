@@ -2,6 +2,7 @@ import { Button, Card, Col, Form, Row, Space } from 'antd'
 import * as _ from 'lodash'
 import {
   ActionType,
+  EditableProTable,
   PageContainer,
   ProColumns,
   ProForm,
@@ -13,10 +14,14 @@ import {
 import PhongBanOptions from '@/components/PhongBanOptions'
 import { danhSachNhanVienChamCong } from '@/services/chamCong.service'
 import { NguoiThamDu } from '@/models/nguoiThamDu.model'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import dayjs from 'dayjs'
+import { waitTime } from '../departments'
 
 function NhapBangCong() {
+  const cacheData = useRef<NguoiThamDu[]>([])
+  const [currentData, setCurrentData] = useState<NguoiThamDu[]>([])
+  const [editableKeys, setEditableRowKeys] = useState<React.Key[]>([])
   const [formTimKiem] = Form.useForm()
   const formRef = useRef<ProFormInstance>()
   const actionRef = useRef<ActionType>()
@@ -135,6 +140,7 @@ function NhapBangCong() {
                 <ProForm.Item
                   label={'Tháng chấm công'}
                   name={'thang_cham_cong'}
+                  dataFormat="MM/YYYY"
                   initialValue={dayjs()}
                 >
                   <ProFormDatePicker
@@ -161,7 +167,7 @@ function NhapBangCong() {
               </Col>
 
               <Col span={4}>
-                <PhongBanOptions label="Phòng ban" name="id_phong_ban" />
+                <PhongBanOptions label="Phòng ban" name="id_bo_phan" />
               </Col>
 
               <Col span={4}>
@@ -174,7 +180,7 @@ function NhapBangCong() {
           </ProForm>
         </Card>
 
-        <ProTable<NguoiThamDu>
+        <EditableProTable<NguoiThamDu>
           actionRef={actionRef}
           debounceTime={500}
           rowKey={'id'}
@@ -185,19 +191,32 @@ function NhapBangCong() {
           pagination={false}
           request={async (params: any) => {
             const filterParams = formTimKiem.getFieldsValue()
+            filterParams.thang_cham_cong =
+              filterParams.thang_cham_cong.format('MM/YYYY')
+            if (!filterParams.id_bo_phan) {
+              return {}
+            }
             const rs = await danhSachNhanVienChamCong({
               ...filterParams,
               ...params,
             })
-
             return {
               data: rs.data,
               total: 200,
               success: true,
             }
           }}
+          editable={{
+            type: 'multiple',
+            editableKeys,
+            onSave: async (rowKey, data, row) => {
+              console.log(rowKey, data, row)
+              await waitTime(2000)
+            },
+            onChange: setEditableRowKeys,
+          }}
           columns={columns}
-        ></ProTable>
+        ></EditableProTable>
       </PageContainer>
     </>
   )
