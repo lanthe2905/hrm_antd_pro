@@ -5,7 +5,7 @@ import {
   ChamCongV2Response,
 } from '@/models/chamCong-V2.model'
 import paramtInterceptors from '@/util/paramtInterceptors'
-const resource = '/api/attendances'
+const resource = '/api/v2/attendances'
 
 const danhSachNhanVienChamCong = async (params: {
   thang_cham_cong: any

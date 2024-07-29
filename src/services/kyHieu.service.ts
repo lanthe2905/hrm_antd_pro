@@ -4,9 +4,9 @@ import {
   KyHieuChamCongResponse,
   KyHieuDropDownResponse,
 } from '@/models/kyHieu.model'
-import { request } from '@umijs/max';
+import { request } from '@umijs/max'
 
-const resource = '/api/attendance-symbols'
+const resource = '/api/v1/attendance-symbols'
 
 const getList = async (params: any) => {
   const rs = await request<KyHieuChamCongListResponse>(resource, {
@@ -17,7 +17,7 @@ const getList = async (params: any) => {
   return {
     data: rs.data,
     total: rs.meta.total,
-    success: true
+    success: true,
   }
 }
 
@@ -43,7 +43,7 @@ const remove = async (params: KyHieuChamCong) => {
 }
 
 const dropdown = async () => {
-  return await request<KyHieuDropDownResponse>(resource + '/for-dropdown',{
+  return await request<KyHieuDropDownResponse>(resource + '/for-dropdown', {
     method: 'GET',
   })
 }

@@ -2,14 +2,18 @@ import {
   // ChamCong,
   ChamCong,
   ChamCongListResponse,
-  ChamCongResponse
+  ChamCongResponse,
 } from '@/models/chamCong-v1.model'
-import { request } from '@umijs/max';
+import { request } from '@umijs/max'
 
-const resource = 'attendances'
+const resource = '/api/v1/attendances'
 
 const getList = async (params: any): Promise<ChamCongListResponse> => {
-  return await request<ChamCongListResponse>(resource, { param: params, hasUser: true,  method: 'GET' })
+  return await request<ChamCongListResponse>(resource, {
+    param: params,
+    hasUser: true,
+    method: 'GET',
+  })
 }
 
 const create = async (params: any) => {
@@ -20,14 +24,14 @@ const create = async (params: any) => {
 }
 
 const update = async (params: any) => {
-  return await request<ChamCongResponse>(resource + '/' + params.id,{
+  return await request<ChamCongResponse>(resource + '/' + params.id, {
     param: params,
     method: 'PUT',
   })
 }
 
 const remove = async (params: any) => {
-  return await request<ChamCongResponse>(resource + '/' + params.id,{
+  return await request<ChamCongResponse>(resource + '/' + params.id, {
     method: 'DELETE',
   })
 }
@@ -49,7 +53,7 @@ const importChamCongDTLT = async (data: any) => {
 }
 
 const importChamCongKhoiSC = async (data: any) => {
-  return await request<ChamCongResponse>(resource + '/import-sc',{
+  return await request<ChamCongResponse>(resource + '/import-sc', {
     param: data,
     method: 'POST',
     hasFile: true,
@@ -57,11 +61,20 @@ const importChamCongKhoiSC = async (data: any) => {
 }
 
 const importChamCongKhoiConLai = async (data: any) => {
-  return await request<ChamCongResponse>(resource + '/import-gt-bt',{
+  return await request<ChamCongResponse>(resource + '/import-gt-bt', {
     param: data,
     method: 'POST',
     hasFile: true,
   })
 }
 
-export { getList, create, update, remove, importChamCong, importChamCongDTLT, importChamCongKhoiConLai, importChamCongKhoiSC }
+export {
+  getList,
+  create,
+  update,
+  remove,
+  importChamCong,
+  importChamCongDTLT,
+  importChamCongKhoiConLai,
+  importChamCongKhoiSC,
+}

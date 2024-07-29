@@ -1,17 +1,17 @@
 import { NgayLeListResponse, NgayLeResponse } from '@/models/ngayLe.model'
 import { request } from '@umijs/max'
 
-const resource = '/api/holidays'
+const resource = '/api/v1/holidays'
 
 const getList = async (params: any) => {
-  return await request<NgayLeListResponse>(resource,{
+  return await request<NgayLeListResponse>(resource, {
     params: params,
     method: 'GET',
   })
 }
 
 const create = async (data: any) => {
-  return await request<NgayLeResponse>(resource,{
+  return await request<NgayLeResponse>(resource, {
     data: data,
     method: 'POST',
   })

@@ -5,12 +5,12 @@ import {
 } from '@/models/loaiNghiPhep.model'
 import { request } from '@umijs/max'
 
-const resource = '/api/leave-types'
+const resource = '/api/v1/leave-types'
 
 const getList = async (params: any): Promise<LoaiNghiPhepListResponse> => {
-  return await request<LoaiNghiPhepListResponse>(resource,{
+  return await request<LoaiNghiPhepListResponse>(resource, {
     params: params,
-    method: "GET",
+    method: 'GET',
   })
 }
 
@@ -22,7 +22,7 @@ const create = async (params: any) => {
 }
 
 const update = async (params: any) => {
-  return await request<LoaiNghiPhepResponse>(resource + '/' + params.id,{
+  return await request<LoaiNghiPhepResponse>(resource + '/' + params.id, {
     data: params,
     method: 'PUT',
   })
@@ -30,7 +30,7 @@ const update = async (params: any) => {
 
 const deleteNgiPhep = async (params: any) => {
   return await request<LoaiNghiPhepResponse>(resource + '/' + params.id, {
-    method: 'DELETE'
+    method: 'DELETE',
   })
 }
 

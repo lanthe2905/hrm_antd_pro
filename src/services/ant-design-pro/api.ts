@@ -15,7 +15,7 @@ export const getToken = () => {
 
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
-  return request<API.Rule<API.CurrentUser>>('/api/current-user', {
+  return request<API.Rule<API.CurrentUser>>('/api/v1/current-user', {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${getToken()}`,
@@ -37,7 +37,7 @@ export async function login(
   body: API.LoginParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.LoginResult>('/api/login', {
+  return request<API.LoginResult>('/api/v1/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
