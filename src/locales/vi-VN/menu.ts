@@ -51,15 +51,17 @@ export default {
   'menu.editor.koni': 'Koni Editor',
 
   //Custom layout
-  'menu.users.departments': "Phòng ban",
-  'menu.users.job-titles': "Chức danh",
-  'menu.users': "Nhân sự",
-  'menu.users.user-list': "Danh sách nhân sự",
+  'menu.users.departments': 'Phòng ban',
+  'menu.users.job-titles': 'Chức danh',
+  'menu.users': 'Nhân sự',
+  'menu.users.user-list': 'Danh sách nhân sự',
   'menu.leaves': 'Quản lý phép',
   'menu.leaves.index': 'Quản lý phép',
-  'menu.leaves.setting': "Cài đặt ngày phép",
+  'menu.leaves.setting': 'Cài đặt ngày phép',
   'menu.salary': 'Tính lương',
   'menu.salary.cham-cong': 'Chấm công',
-  'menu.setting':"Cài đặt", 
-  'menu.setting.don-gia-sp-lai-tau': 'Đơn giá sản phẩm lái tàu'
-};
+  'menu.salary.cham-cong-v1': 'Chấm công',
+  'menu.setting': 'Cài đặt',
+  'menu.setting.don-gia-sp-lai-tau': 'Đơn giá sản phẩm lái tàu',
+  'menu.setting.ki-hieu': 'Kí hiệu',
+}

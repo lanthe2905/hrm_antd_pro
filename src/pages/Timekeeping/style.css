@@ -1,0 +1,21 @@
+.fc-event-title-container-center {
+  text-align: center;
+}
+
+.fc-event-title-container-pending {
+  background-color: rgb(76 229 21)
+}
+
+.fc-event-title-container {
+  font-size: 15px;
+}
+
+/* Set the width of each column in the resource timeline view to 50px */
+.fc-timeline .fc-timeline-slot {
+  /* width: 50px !important; */
+}
+
+.fc-datagrid-cell-cushion {
+  height: 50px !important;
+  position: absolute;
+}
