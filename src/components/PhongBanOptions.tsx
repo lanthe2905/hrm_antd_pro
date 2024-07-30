@@ -15,7 +15,7 @@ type SchoolFormFieldProps = {
   byData?: PhongBan[]
   styles?: React.CSSProperties
 }
-const PhongBanField: FC<SchoolFormFieldProps> = (props) => {
+const PhongBanOptions: FC<SchoolFormFieldProps> = (props) => {
   const {
     name,
     onChange,
@@ -83,4 +83,4 @@ const PhongBanField: FC<SchoolFormFieldProps> = (props) => {
     />
   )
 }
-export default PhongBanField
+export default PhongBanOptions

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import {  BasicListResponse, BasicResponse } from './common.model'
+import { BasicListResponse, BasicResponse } from './common.model'
+import { LuongKy1 } from './luongKy1.model'
 
 interface User {
   id: number
@@ -86,16 +87,15 @@ interface User {
     ten: string
   }
 
-  // luong_ky_1_s: LuongKy1[]
+  luong_ky_1_s: LuongKy1[]
   //Anh thiên mới thêm
   ten_chuc_danh?: string
   ma_bp?: string
   ten_bo_phan?: string
 }
 
+interface UserResponse extends BasicResponse<User> {}
 
-interface UserResponse extends BasicResponse<User> { }
+interface UserListResponse extends BasicListResponse<User> {}
 
-interface UserListResponse extends BasicListResponse<User> { }
-
-export  { User, UserResponse, UserListResponse }
+export { User, UserResponse, UserListResponse }

@@ -93,6 +93,11 @@ export default [
         component: './cham-cong/',
       },
       {
+        name: 'luong-ky-1',
+        path: '/tinh-luong/luong-ky-1/',
+        component: './luong/luong-ky-1/',
+      },
+      {
         path: '/tinh-luong/cham-cong-v1/',
         component: './Timekeeping/',
       },

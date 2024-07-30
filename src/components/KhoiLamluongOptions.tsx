@@ -8,7 +8,7 @@ type Props = {
   style?: React.CSSProperties
   value?: any
   skipMeaninglessValue?: boolean
-  name: string
+  name?: string
   exceps?: any[] //Loải bỏ giá trị mong muôn
 }
 
