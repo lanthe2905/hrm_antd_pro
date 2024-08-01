@@ -70,4 +70,5 @@ export default {
   'menu.setting.don-gia-sp-lai-tau': 'Đơn giá sản phẩm lái tàu',
   'menu.setting.ki-hieu': 'Kí hiệu',
   'menu.setting.luong': 'Cài đặt lương',
+  'menu.tai-san': 'Tài sản',
 }
