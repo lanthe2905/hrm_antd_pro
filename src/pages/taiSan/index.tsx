@@ -89,7 +89,7 @@ export default () => {
       dataIndex: 'ngay_mua',
       filters: false,
       ellipsis: true,
-      render: (text, record, _, action) => [
+      render: (text, record) => [
         dayjs(record.ngay_mua).format('DD/MM/YYYY')
       ]
     },
