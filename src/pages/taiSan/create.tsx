@@ -30,7 +30,6 @@ const filterOption = (
 const Create = ({ accessor, resetTable, taiSanList }: CreateJobTitleProps) => {
   const [openDialog, setOpenDialog] = accessor
   const [form] = Form.useForm()
-  const [loading, setLoading] = useState<boolean>(false)
   const navigate = useNavigate()
 
   const TaiSanOption = useMemo(() => {
@@ -45,7 +44,6 @@ const Create = ({ accessor, resetTable, taiSanList }: CreateJobTitleProps) => {
 
   const onFinish = async (value: AssetsRequest) => {
     try {
-      setLoading(true)
       value['don_gia'] = Number(regexGetNumber(value['don_gia']))
       value['so_luong'] = Number(regexGetNumber(value['so_luong']))
       const rs = await createAssets({ params: value })
@@ -56,7 +54,7 @@ const Create = ({ accessor, resetTable, taiSanList }: CreateJobTitleProps) => {
     } catch (error) {
       handleApiError(error, form, navigate)
     } finally {
-      setLoading(false)
+      
     }
   }
 
@@ -76,7 +74,10 @@ const Create = ({ accessor, resetTable, taiSanList }: CreateJobTitleProps) => {
             label="Mã tài sản"
             tooltip="Tối đa 50 kí tự"
             placeholder="Nhập mã tài sản..."
-            rules={[{ required: true, message: getMessage('required', 'Mã tài sản') }]}
+            rules={[
+              { required: true, message: getMessage('required', 'Mã tài sản') },
+              { max: 50, message: 'Mã tài sản không được quá 50 ký tự' }
+            ]}
           />
 
           <ProFormText
@@ -86,7 +87,7 @@ const Create = ({ accessor, resetTable, taiSanList }: CreateJobTitleProps) => {
             placeholder="Nhập đơn giá..."
             rules={[{ required: true, message: getMessage('required', 'Đơn giá') }]}
             fieldProps={{
-              onChange: (e)=>{
+              onBlur: (e)=>{
                 form.setFieldValue('don_gia', renderCurrency(e.target.value))
               }
             }}
@@ -99,10 +100,10 @@ const Create = ({ accessor, resetTable, taiSanList }: CreateJobTitleProps) => {
             label="Tên tài sản"
             tooltip="Tối đa 255 kí tự và không được trùng lặp"
             placeholder="Nhập tên tài sản..."
-            rules={[{ required: true, message: getMessage('required', 'Tên tài sản') }]}
-            fieldProps={{
-              maxLength: 255
-            }}
+            rules={[
+              { required: true, message: getMessage('required', 'Tên tài sản') },
+              { max: 255, message: 'Tên tài sản không được quá 255 ký tự' }
+            ]}
           />
           <ProFormDatePicker
             name="ngay_mua"
@@ -131,7 +132,7 @@ const Create = ({ accessor, resetTable, taiSanList }: CreateJobTitleProps) => {
             placeholder="Nhập số lượng..."
             rules={[{ required: true, message: getMessage('required', 'Số lượng') }]}
             fieldProps={{
-              onChange: (e)=>{
+              onBlur: (e)=>{
                 form.setFieldValue('so_luong', renderCurrency(e.target.value))
               }
             }}
@@ -143,11 +144,11 @@ const Create = ({ accessor, resetTable, taiSanList }: CreateJobTitleProps) => {
             name="don_vi"
             label="Đơn vị"
             tooltip="Tối đa 50 kí tự"
-            placeholder="Nhập tên..."
-            rules={[{ required: true, message: getMessage('required', 'Đơn vị') }]}
-            fieldProps={{
-              maxLength: 50
-            }}
+            placeholder="Nhập đơn vị..."
+            rules={[
+              { required: true, message: getMessage('required', 'Đơn vị') },
+              { max: 50, message: 'Đơn vị không được quá 50 ký tự' }
+            ]}
           />
           <ProFormText 
             width="md"
@@ -155,10 +156,10 @@ const Create = ({ accessor, resetTable, taiSanList }: CreateJobTitleProps) => {
             label="Nhà cung cấp"
             tooltip="Tối đa 1000 kí tự"
             placeholder="Nhập vào nhà cung cấp..."
-            rules={[{ required: true, message: getMessage('required', 'Nhà cung cấp') }]}
-            fieldProps={{
-              maxLength: 1000
-            }}
+            rules={[
+              { required: true, message: getMessage('required', 'Nhà cung cấp') },
+              { max: 1000, message: 'Cấp phát không được quá 1000 ký tự' }
+            ]}
           />
         </ProForm.Group>
         <ProForm.Group>
@@ -168,10 +169,10 @@ const Create = ({ accessor, resetTable, taiSanList }: CreateJobTitleProps) => {
             width="md"
             tooltip="Tối đa 255 kí tự"
             placeholder="Nhập chính sách bảo hành..."
-            rules={[{ required: true, message: getMessage('required', 'Bảo hành') }]}
-            fieldProps={{
-              maxLength: 255
-            }}
+            rules={[
+              { required: true, message: getMessage('required', 'Bảo hành') },
+              { max: 255, message: 'Bảo hành không được quá 255 ký tự' }
+            ]}
           />
         </ProForm.Group>
         

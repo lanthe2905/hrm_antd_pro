@@ -23,15 +23,14 @@ type CreateJobTitleProps = {
   item: [AssetsRequest, any]
 }
 
-const filterOption = (
-  input: string,
-  option?: { label: string; value: string },
-) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+// const filterOption = (
+//   input: string,
+//   option?: { label: string; value: string },
+// ) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
 
 const EditModal = ({ accessor, resetTable, taiSanList, item }: CreateJobTitleProps) => {
   const [openDialog, setOpenDialog] = accessor
   const [form] = Form.useForm()
-  const [loading, setLoading] = useState<boolean>(false)
   const navigate = useNavigate()
   const [asset] = item
 
@@ -47,7 +46,6 @@ const EditModal = ({ accessor, resetTable, taiSanList, item }: CreateJobTitlePro
 
   const onFinish = async (value: AssetsRequest) => {
     try {
-      setLoading(true)
       const rs = await updateAssets(value)
       message.success(rs?.message)
       setOpenDialog(false)
@@ -56,7 +54,7 @@ const EditModal = ({ accessor, resetTable, taiSanList, item }: CreateJobTitlePro
     } catch (error) {
       handleApiError(error, form, navigate)
     } finally {
-      setLoading(false)
+      
     }
   }
   
@@ -83,7 +81,10 @@ const EditModal = ({ accessor, resetTable, taiSanList, item }: CreateJobTitlePro
             label="Mã tài sản"
             tooltip="Tối đa 50 kí tự"
             placeholder="Nhập mã tài sản..."
-            rules={[{ required: true, message: getMessage('required', 'Mã tài sản') }]}
+            rules={[
+              { required: true, message: getMessage('required', 'Mã tài sản') },
+              { max: 50, message: 'Mã tài sản không được quá 50 ký tự' }
+            ]}
           />
 
           <ProFormText
@@ -93,7 +94,7 @@ const EditModal = ({ accessor, resetTable, taiSanList, item }: CreateJobTitlePro
             placeholder="Nhập đơn giá..."
             rules={[{ required: true, message: getMessage('required', 'Đơn giá') }]}
             fieldProps={{
-              onChange: (e)=>{
+              onBlur: (e)=>{
                 form.setFieldValue('don_gia', renderCurrency(e.target.value))
               }
             }}
@@ -106,10 +107,10 @@ const EditModal = ({ accessor, resetTable, taiSanList, item }: CreateJobTitlePro
             label="Tên tài sản"
             tooltip="Tối đa 255 kí tự và không được trùng lặp"
             placeholder="Nhập tên tài sản..."
-            rules={[{ required: true, message: getMessage('required', 'Tên tài sản') }]}
-            fieldProps={{
-              maxLength: 255
-            }}
+            rules={[
+              { required: true, message: getMessage('required', 'Tên tài sản') },
+              { max: 255, message: 'Tên tài sản không được quá 255 ký tự' }
+            ]}
           />
           <ProFormDatePicker
             name="ngay_mua"
@@ -138,7 +139,7 @@ const EditModal = ({ accessor, resetTable, taiSanList, item }: CreateJobTitlePro
             placeholder="Nhập số lượng..."
             rules={[{ required: true, message: getMessage('required', 'Số lượng') }]}
             fieldProps={{
-              onChange: (e)=>{
+              onBlur: (e)=>{
                 form.setFieldValue('so_luong', renderCurrency(e.target.value))
               }
             }}
@@ -151,10 +152,10 @@ const EditModal = ({ accessor, resetTable, taiSanList, item }: CreateJobTitlePro
             label="Đơn vị"
             tooltip="Tối đa 50 kí tự"
             placeholder="Nhập tên..."
-            rules={[{ required: true, message: getMessage('required', 'Đơn vị') }]}
-            fieldProps={{
-              maxLength: 50
-            }}
+            rules={[
+              { required: true, message: getMessage('required', 'Đơn vị') },
+              { max: 50, message: 'Đơn vị không được quá 50 ký tự' }
+            ]}
           />
           <ProFormText 
             width="md"
@@ -162,10 +163,10 @@ const EditModal = ({ accessor, resetTable, taiSanList, item }: CreateJobTitlePro
             label="Nhà cung cấp"
             tooltip="Tối đa 1000 kí tự"
             placeholder="Nhập vào nhà cung cấp..."
-            rules={[{ required: true, message: getMessage('required', 'Nhà cung cấp') }]}
-            fieldProps={{
-              maxLength: 1000
-            }}
+            rules={[
+              { required: true, message: getMessage('required', 'Nhà cung cấp') },
+              { max: 1000, message: 'Cấp phát không được quá 1000 ký tự' }
+            ]}
           />
         </ProForm.Group>
         <ProForm.Group>
@@ -175,10 +176,10 @@ const EditModal = ({ accessor, resetTable, taiSanList, item }: CreateJobTitlePro
             width="md"
             tooltip="Tối đa 255 kí tự"
             placeholder="Nhập chính sách bảo hành..."
-            rules={[{ required: true, message: getMessage('required', 'Bảo hành') }]}
-            fieldProps={{
-              maxLength: 255
-            }}
+            rules={[
+              { required: true, message: getMessage('required', 'Bảo hành') },
+              { max: 255, message: 'Bảo hành không được quá 255 ký tự' }
+            ]}
           />
         </ProForm.Group>
         

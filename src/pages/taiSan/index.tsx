@@ -30,7 +30,7 @@ export const waitTime = async (time: number = 100) => {
 export default () => {
   const actionRef = useRef<ActionType>()
   const formRef = useRef<ProFormInstance>()
-  const [selectedAssets, setSelectedAssets] = useState({} as AssetsRequest)
+  const [selectedTaiSan, setSelectedTaiSan] = useState({} as AssetsRequest)
   const [visibleCreateModal, setVisibleCreateModal] = useState<boolean>(false)
   const [visibleEditModal, setVisibleEditModal] = useState<boolean>(false)
   const [taiSanList, setTaiSanList] = useState<GroupAssetsRequest[]>([])
@@ -62,7 +62,7 @@ export default () => {
       search: false,
     },
     {
-      disable: true,
+      // disable: true,
       title: 'Tên',
       search: false,
       dataIndex: 'ten',
@@ -71,7 +71,7 @@ export default () => {
       ellipsis: true,
     },
     {
-      disable: true,
+      // disable: true,
       title: 'Nhóm tài sản',
       search: false,
       dataIndex: 'id_nhom_tai_san',
@@ -83,7 +83,7 @@ export default () => {
       },
     },
     {
-      disable: true,
+      // disable: true,
       title: 'Ngày mua',
       search: false,
       dataIndex: 'ngay_mua',
@@ -94,7 +94,7 @@ export default () => {
       ]
     },
     {
-      disable: true,
+      // disable: true,
       title: 'Cấp phát',
       search: false,
       dataIndex: 'nha_cung_cap',
@@ -102,7 +102,7 @@ export default () => {
       ellipsis: true,
     },
     {
-      disable: true,
+      // disable: true,
       title: 'Số lượng',
       search: false,
       dataIndex: 'so_luong',
@@ -119,7 +119,7 @@ export default () => {
             flushSync(() => {
               setVisibleEditModal(true)
             })
-            setSelectedAssets(record)
+            setSelectedTaiSan(record)
           }}
         >
           <EditOutlined /> Chỉnh sửa
@@ -177,7 +177,7 @@ export default () => {
         accessor={[visibleEditModal, setVisibleEditModal]}
         resetTable={resetTable}
         taiSanList={taiSanList}
-        item={[selectedAssets, setSelectedAssets]}
+        item={[selectedTaiSan, setSelectedTaiSan]}
       ></EditModal>
 
       <PageContainer>
@@ -203,7 +203,7 @@ export default () => {
           }}
           options={{
             setting: {
-              listsHeight: 400,
+              listsHeight: 1000,
             },
           }}
           form={{
