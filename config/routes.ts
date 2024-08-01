@@ -342,9 +342,9 @@ export default [
     path: '/*',
   },
   {
-    path: '/assets',
-    name: 'assets',
+    path: '/tai-san',
+    name: 'taiSan',
     icon: 'profile',
-    component: './Assets',
+    component: './taiSan',
   },
 ]
