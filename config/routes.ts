@@ -348,7 +348,7 @@ export default [
   },
   {
     path: '/tai-san',
-    name: 'taiSan',
+    name: 'tai-san',
     icon: 'profile',
     component: './taiSan',
   },

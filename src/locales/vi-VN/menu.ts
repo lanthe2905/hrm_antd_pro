@@ -65,5 +65,5 @@ export default {
   'menu.setting': 'Cài đặt',
   'menu.setting.don-gia-sp-lai-tau': 'Đơn giá sản phẩm lái tàu',
   'menu.setting.ki-hieu': 'Kí hiệu',
-  'menu.taiSan': 'Tài sản',
+  'menu.tai-san': 'Tài sản',
 }

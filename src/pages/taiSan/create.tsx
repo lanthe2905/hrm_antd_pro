@@ -51,10 +51,10 @@ const Create = ({ accessor, resetTable, taiSanList }: CreateJobTitleProps) => {
       setOpenDialog(false)
       form.resetFields()
       resetTable()
+      return true
     } catch (error) {
-      handleApiError(error, form, navigate)
-    } finally {
-      
+      handleApiError(error, form, null)
+      return false
     }
   }
 

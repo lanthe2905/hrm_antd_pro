@@ -6,12 +6,13 @@ import {
     GroupAssetsRequestListResponse
   } from '@/models/assets.model'
   import { request } from '@umijs/max'
+  import paramtInterceptors from '@/util/paramtInterceptors'
   const resource = '/api/v1/assets'
   
   const getList = async (params: any, options?: { [key: string]: any }) => {
     const rs = await request<AssetsRequestListResponse>(resource, {
       method: 'GET',
-      params: params,
+      params: paramtInterceptors(params),
       ...(options || {}),
     })
   
