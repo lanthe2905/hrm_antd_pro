@@ -327,6 +327,10 @@ export default [
     path: '/setting',
     routes: [
       {
+        path: '/setting/',
+        redirect: '/setting/don-gia-sp',
+      },
+      {
         name: 'don-gia-sp-lai-tau',
         path: '/setting/don-gia-sp',
         component: './settings/lai-tau',
@@ -335,6 +339,11 @@ export default [
         name: 'ki-hieu',
         path: '/setting/ki-hieu',
         component: './settings/ki-hieu/',
+      },
+      {
+        name: 'luong',
+        path: '/setting/luong',
+        component: './settings/luong/',
       },
     ],
   },

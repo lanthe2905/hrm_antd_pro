@@ -51,18 +51,23 @@ export default {
   'menu.editor.koni': 'Koni Editor',
 
   //Custom layout
+  //Nhân sự
   'menu.users.departments': 'Phòng ban',
   'menu.users.job-titles': 'Chức danh',
   'menu.users': 'Nhân sự',
   'menu.users.user-list': 'Danh sách nhân sự',
+  //Phép
   'menu.leaves': 'Quản lý phép',
   'menu.leaves.index': 'Quản lý phép',
   'menu.leaves.setting': 'Cài đặt ngày phép',
+  //Lương
   'menu.salary': 'Tính lương',
   'menu.salary.cham-cong': 'Bảng chấm công',
   'menu.salary.cham-cong-v1': 'Chấm công',
   'menu.salary.luong-ky-1': 'Lương kỳ 1',
+  //Cài đặt
   'menu.setting': 'Cài đặt',
   'menu.setting.don-gia-sp-lai-tau': 'Đơn giá sản phẩm lái tàu',
   'menu.setting.ki-hieu': 'Kí hiệu',
+  'menu.setting.luong': 'Cài đặt lương',
 }
