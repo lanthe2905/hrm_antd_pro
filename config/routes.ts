@@ -341,4 +341,10 @@ export default [
     component: '404',
     path: '/*',
   },
+  {
+    path: '/assets',
+    name: 'assets',
+    icon: 'profile',
+    component: './Assets',
+  },
 ]
