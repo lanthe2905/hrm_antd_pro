@@ -115,6 +115,11 @@ export default [
         path: '/tinh-luong/khoi-btc',
         component: './luong/khoiBTC/',
       },
+      {
+        name: 'sc',
+        path: 'tinh-luong/khoi-sc',
+        component: './luong/khoiSC/',
+      },
     ],
   },
   {

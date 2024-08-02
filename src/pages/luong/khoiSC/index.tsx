@@ -11,7 +11,7 @@ import {
   RouteContextType,
 } from '@ant-design/pro-components'
 import { Space, Tooltip, Typography } from 'antd'
-import { getLuongBTCData } from '@/services/luong.service'
+import { getLuongSCData } from '@/services/luong.service'
 import type { Luong } from '@/models/luong.model'
 import KhoiLamLuongOptions from '@/components/KhoiLamluongOptions'
 import { renderCurrency } from '@/util/common'
@@ -20,7 +20,7 @@ import useHeaderTitle from '../hooks/useHeaderTitle'
 import dayjs from 'dayjs'
 const { Title, Text } = Typography
 
-const KhoiBTC: FC = () => {
+const KhoiSC: FC = () => {
   const [dataSource, setDataSource] = useState<Luong[]>([])
   const [kdc, luongToiThieu, quyLuong] = useHeaderTitle(dataSource)
   const formRef = useRef<ProFormInstance>()
@@ -47,7 +47,6 @@ const KhoiBTC: FC = () => {
       dataIndex: ['thong_tin_nhan_vien', 'chuc_danh_ll'],
       key: 'chuc_danh',
     },
-    // { title: <Tooltip title="Giờ sản phẩm">Giờ SP</Tooltip>, dataIndex: 'gio_san_pham', key: 'gio_san_pham' },
     {
       title: <Tooltip title="Hệ số lương">HSL</Tooltip>,
       dataIndex: 'hsl',
@@ -71,6 +70,11 @@ const KhoiBTC: FC = () => {
       key: 'nctt',
     },
     {
+      title: <Tooltip title="Giờ sản phẩm">Giờ SP</Tooltip>,
+      dataIndex: 'gio_san_pham',
+      key: 'gio_san_pham',
+    },
+    {
       title: <Tooltip title="Lương chế độ">T1</Tooltip>,
       dataIndex: 't1',
       key: 't1',
@@ -90,15 +94,22 @@ const KhoiBTC: FC = () => {
       renderText: renderCurrency,
     },
     {
-      title: <Tooltip title="Lương đêm">l.dem</Tooltip>,
-      dataIndex: 'luong_dem',
-      key: 'luong_dem',
-      renderText: renderCurrency,
-    },
-    {
       title: <Tooltip title="Lương cơm">l.com</Tooltip>,
       dataIndex: 'luong_com',
       key: 'luong_com',
+      renderText: renderCurrency,
+    },
+    {
+      title: <Tooltip title="Lương sản phẩm">l.sanpham</Tooltip>,
+      dataIndex: 'luong_san_pham',
+      key: 'luong_san_pham',
+      renderText: renderCurrency,
+    },
+
+    {
+      title: <Tooltip title="Lương đêm">l.dem</Tooltip>,
+      dataIndex: 'luong_dem',
+      key: 'luong_dem',
       renderText: renderCurrency,
     },
     {
@@ -247,7 +258,7 @@ const KhoiBTC: FC = () => {
                   ),
                 ]}
                 request={async (params: any) => {
-                  return getLuongBTCData(params)
+                  return getLuongSCData(params)
                 }}
                 search={{
                   labelWidth: 'auto',
@@ -264,4 +275,4 @@ const KhoiBTC: FC = () => {
   )
 }
 
-export default KhoiBTC
+export default KhoiSC

@@ -20,7 +20,7 @@ import useHeaderTitle from '../hooks/useHeaderTitle'
 import dayjs from 'dayjs'
 const { Title, Text } = Typography
 
-const LuongGTBT: FC = () => {
+const KhoiGTBT: FC = () => {
   const [dataSource, setDataSource] = useState<Luong[]>([])
   const [kdc, luongToiThieu, quyLuong] = useHeaderTitle(dataSource)
   const formRef = useRef<ProFormInstance>()
@@ -264,4 +264,4 @@ const LuongGTBT: FC = () => {
   )
 }
 
-export default LuongGTBT
+export default KhoiGTBT
