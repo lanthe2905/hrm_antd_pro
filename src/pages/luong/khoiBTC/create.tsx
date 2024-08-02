@@ -4,7 +4,7 @@ import {
   ProFormDatePicker,
   ProFormText,
 } from '@ant-design/pro-components'
-import { createLuongGTBT } from '@/services/luong.service'
+import { createLuongBTC } from '@/services/luong.service'
 import { handleApiError } from '@/util/handleError'
 import { getMessage, regexGetNumber, renderCurrency } from '@/util/common'
 import useCaiDat from '@/pages/luong/hooks/useCaiDat'
@@ -38,24 +38,17 @@ function Create(props: Props) {
         data['quy_luong'] = regexGetNumber(data?.quy_luong ?? 0)
         data['luong_toi_thieu'] = regexGetNumber(data?.luong_toi_thieu ?? 0)
 
-        const rs = await createLuongGTBT(data)
+        const rs = await createLuongBTC(data)
         message.success(rs.message ?? '')
+        form.resetFields()
         resetTable()
-        return true
       }
+      return true
     } catch (error) {
       handleApiError(error, form, null)
       return false
     }
   }
-
-  // const removeErrorValidate = (name: string) => {
-  //   form.setFields([
-  //     {
-  //       name: name,
-  //     },
-  //   ])
-  // }
 
   return (
     <>
@@ -122,23 +115,21 @@ function Create(props: Props) {
               message: getMessage('required', 'Lương tối thiểu'),
             },
           ]}
-          labelAlign="left"
-        >
-          <Input
-            type="text"
-            onBlur={(e) => {
+          fieldProps={{
+            onBlur: (e) => {
               form.setFieldValue(
                 'luong_toi_thieu',
                 renderCurrency(e.target.value) + '',
               )
-            }}
-          />
-        </ProFormText>
+            },
+          }}
+          labelAlign="left"
+        ></ProFormText>
 
         <ProFormText
           name={'kdc'}
           label="Hệ số điều chỉnh"
-          initialValue={caiDat?.luong?.gt_bt.kdc ?? 0}
+          initialValue={caiDat?.luong?.btc.kdc ?? 0}
           rules={[
             {
               required: true,

@@ -108,7 +108,12 @@ export default [
       {
         name: 'gt-bt',
         path: '/tinh-luong/khoi-gtbt',
-        component: './luong/GT-BT/',
+        component: './luong/khoiGTBT/',
+      },
+      {
+        name: 'btc',
+        path: '/tinh-luong/khoi-btc',
+        component: './luong/khoiBTC/',
       },
     ],
   },
