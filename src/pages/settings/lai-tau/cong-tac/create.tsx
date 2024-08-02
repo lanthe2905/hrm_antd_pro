@@ -22,7 +22,7 @@ const Create = ()=>{
     Thêm mới
   </Button>
     <Modal
-      title={<Typography.Title level={4}>Thêm đơn giá sản phẩm </Typography.Title>}
+      title={<Typography.Title level={4}>Thêm công tác </Typography.Title>}
       open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={600}
     >
       <Form layout='vertical'
