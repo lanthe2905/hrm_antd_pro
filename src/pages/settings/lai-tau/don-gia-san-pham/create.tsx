@@ -104,9 +104,16 @@ const Create = ()=>{
             <Form.Item
                   name="khudoan"
                   label="Khu đoạn:"
-                  tooltip= "Nhập kí hiệu khu đoạn trùng với kí hiệu khu đoạn trong cơ báo để hệ thống có thể nhận diện khu đoạn và áp đơn giá chính xác. Nếu có nhiều khu đoạn thì các khu đoạn cách nhau bằng dấu phẩy">
+                  tooltip="Nếu đơn giá không áp dụng cho khu đoạn nào đặc biệt thì phần khu đoạn bạn để trống"
+                  >
 
-                    <Input placeholder='VD: HUE-DN-HUE, DH-HUE-DH'/>
+<Select
+                      mode="multiple"
+                      allowClear
+                      style={{ width: '100%' }}
+                      placeholder="Khu đoạn"
+                      options={[{value:1, label: 'DN-HUE'},{value:2, label: 'QN-DT'}]}
+                    />
             </Form.Item>
           </Col>
         </Row>
@@ -127,13 +134,25 @@ const Create = ()=>{
         <Row gutter={15}>
           <Col span={12}>
             <Form.Item name="dongiatai"
-                  label="Đơn giá lái tàu:">
+                  label="Đơn giá lái tàu:"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Nhập đơn giá lái tàu",
+                    },
+                  ]}>
                   <Input placeholder='Đơn giá tài'/>
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item name="dongiaphu"
-                  label="Đơn giá phụ lái tàu:">
+                  label="Đơn giá phụ lái tàu:"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Nhập đơn giá phụ lái tàu",
+                    },
+                  ]}>
                   <Input placeholder='Đơn giá phụ'/>
             </Form.Item>
           </Col>
