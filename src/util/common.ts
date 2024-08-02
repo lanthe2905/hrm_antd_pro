@@ -64,9 +64,7 @@ const createUniqueKey = () => {
 }
 
 const regexGetNumber = (num: string | number): string => {
-  if (num == 0) return '0'
-  if (!num) return ''
-  return String(num).replace(/[^0-9.]/g, '')
+  return String(renderCurrency(num)).replace(/[^0-9.-]/g, '')
 }
 
 const getLoaiPhanCa = (key: (typeof LOAI_PHAN_CA)[number]) => {
@@ -76,7 +74,7 @@ const getLoaiPhanCa = (key: (typeof LOAI_PHAN_CA)[number]) => {
 }
 
 const renderCurrency = (num: any) => {
-  num = String(num).replace(/[^0-9.]/g, '')
+  num = String(num).replace(/[^0-9.-]/g, '')
   if (isNaN(Number(num)) == true) return 0
   return Number(num).toLocaleString('en-US')
 }
@@ -85,7 +83,7 @@ const beforeResponse = (response: any) => {
   return {
     data: response.data,
     code: 1,
-    status: "OK"
+    status: 'OK',
   }
 }
 

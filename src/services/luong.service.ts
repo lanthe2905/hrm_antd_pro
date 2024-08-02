@@ -1,8 +1,9 @@
 import { BasicListRequest } from '@/models/common.model'
 import { LuongResponse, LuongListResponse } from '@/models/luong.model'
+import paramtInterceptors from '@/util/paramtInterceptors'
 import { request } from '@umijs/max'
 
-const resource = 'salaries'
+const resource = '/api/v1/salaries'
 
 type CreateForm = {
   thang: string
@@ -12,24 +13,35 @@ type CreateForm = {
 }
 
 const getLuongGTBTData = async (params: BasicListRequest) => {
-  return await request<LuongListResponse>(resource + '/gt-bt', {
-    params: params,
+  const rs = await request<LuongListResponse>(resource + '/gt-bt', {
+    params: paramtInterceptors(params),
     method: 'GET',
   })
+  return {
+    data: rs?.data ?? [],
+    success: true,
+    total: rs.meta.total ?? 0,
+  }
 }
 
 const createLuongGTBT = async (params: CreateForm) => {
   return await request<LuongResponse>(resource + '/gt-bt', {
-    params: params,
+    data: params,
     method: 'POST',
   })
 }
 
 const getLuongBTCData = async (params: BasicListRequest) => {
-  return await request<LuongListResponse>(resource + '/btc', {
-    params: params,
+  const rs = await request<LuongListResponse>(resource + '/btc', {
+    params: paramtInterceptors(params),
     method: 'GET',
   })
+
+  return {
+    data: rs?.data ?? [],
+    success: true,
+    total: rs.meta.total ?? 0,
+  }
 }
 
 const createLuongBTC = async (params: CreateForm) => {
@@ -40,10 +52,16 @@ const createLuongBTC = async (params: CreateForm) => {
 }
 
 const getLuongSCData = async (params: BasicListRequest) => {
-  return await request<LuongListResponse>(resource + '/sc', {
-    params: params,
+  const rs = await request<LuongListResponse>(resource + '/sc', {
+    params: paramtInterceptors(params),
     method: 'GET',
   })
+
+  return {
+    data: rs?.data ?? [],
+    success: true,
+    total: rs.meta.total ?? 0,
+  }
 }
 
 const createLuongSC = async (params: CreateForm) => {
@@ -61,10 +79,16 @@ const createLuongLM = async (params: CreateForm) => {
 }
 
 const getLuongLMData = async (params: BasicListRequest) => {
-  return await request<LuongListResponse>(resource + '/lm', {
-    param: params,
+  const rs = await request<LuongListResponse>(resource + '/lm', {
+    param: paramtInterceptors(params),
     method: 'GET',
   })
+
+  return {
+    data: rs?.data ?? [],
+    success: true,
+    total: rs.meta.total ?? 0,
+  }
 }
 
 const createLuongDTLT = async (params: BasicListRequest) => {
@@ -75,22 +99,34 @@ const createLuongDTLT = async (params: BasicListRequest) => {
 }
 
 const getLuongDTLT = async (params: BasicListRequest) => {
-  return await request<LuongListResponse>(resource + '/dt-lt', {
-    params: params,
+  const rs = await request<LuongListResponse>(resource + '/dt-lt', {
+    params: paramtInterceptors(params),
     method: 'GET',
   })
+
+  return {
+    data: rs?.data ?? [],
+    success: true,
+    total: rs.meta.total ?? 0,
+  }
 }
 
 const getLuongHTVT = async (params: BasicListRequest) => {
-  return await request<LuongListResponse>(resource + '/htvt', {
-    params: params,
+  const rs = await request<LuongListResponse>(resource + '/htvt', {
+    params: paramtInterceptors(params),
     method: 'GET',
   })
+
+  return {
+    data: rs?.data ?? [],
+    success: true,
+    total: rs.meta.total ?? 0,
+  }
 }
 
 const createLuongHTVT = async (params: BasicListRequest) => {
   return await request<LuongListResponse>(resource + '/htvt', {
-    param: params,
+    data: params,
     method: 'POST',
   })
 }
@@ -109,10 +145,16 @@ const createLuongClct = async (params: BasicListRequest) => {
 }
 
 const getLuongCLCT = async (params: any) => {
-  return await request<LuongListResponse>(resource + '/clct', {
-    params: params,
+  const rs = await request<LuongListResponse>(resource + '/clct', {
+    params: paramtInterceptors(params),
     method: 'GET',
   })
+
+  return {
+    data: rs?.data ?? [],
+    success: true,
+    total: rs.meta.total ?? 0,
+  }
 }
 
 export {
