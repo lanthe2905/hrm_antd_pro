@@ -22,7 +22,7 @@ const Create = ()=>{
     Thêm mới
   </Button>
     <Modal
-      title={<Typography.Title level={4}>Thêm tính chất </Typography.Title>}
+      title={<Typography.Title level={4}>Thêm khu đoạn </Typography.Title>}
       open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={600}
     >
       <Form layout='vertical'
@@ -30,15 +30,16 @@ const Create = ()=>{
         <Row gutter={15}>
           <Col span={24}>
           <Form.Item
-                  name="matinhchat"
-                  label="Mã tính chất:"
+                  name="kihieu"
+                  label="Kí hiệu khu đoạn:"
+                  tooltip= "Nhập kí hiệu khu đoạn trùng với kí hiệu khu đoạn trong cơ báo để hệ thống có thể nhận diện khu đoạn và áp đơn giá chính xác."
                   rules={[
                     {
                       required: true,
-                      message: "Nhập mã tính chất",
+                      message: "Nhập kí hiệu khu đoạn",
                     },
                   ]}>
-                    <Input placeholder='Mã tính chất'/>
+                    <Input placeholder='VD: HUE-DN-HUE, DN-QN'/>
             </Form.Item>
           </Col>
           <Col span={24}>
