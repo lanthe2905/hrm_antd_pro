@@ -65,8 +65,14 @@ export default {
   'menu.salary.cham-cong': 'Bảng chấm công',
   'menu.salary.cham-cong-v1': 'Chấm công',
   'menu.salary.luong-ky-1': 'Lương kỳ 1',
+  'menu.salary.gt-bt': 'Lương khối GT-BT',
+  'menu.salary.btc': 'Lương khối BTC',
+  'menu.salary.sc': 'Lương khối SC',
+  'menu.salary.lm': 'Lương khối Lái máy',
+  'menu.salary.dtlt': 'Lương đội trưởng',
   //Cài đặt
   'menu.setting': 'Cài đặt',
+
   'menu.setting.don-gia-sp-lai-tau': 'Đơn giá sản phẩm lái tàu',
   'menu.setting.ki-hieu': 'Kí hiệu',
   'menu.setting.luong': 'Cài đặt lương',

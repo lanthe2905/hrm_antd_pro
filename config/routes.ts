@@ -105,6 +105,26 @@ export default [
         path: '/tinh-luong/them-cham-cong',
         component: './cham-cong/themChamCong',
       },
+      {
+        name: 'gt-bt',
+        path: '/tinh-luong/khoi-gtbt',
+        component: './luong/khoiGTBT/',
+      },
+      {
+        name: 'btc',
+        path: '/tinh-luong/khoi-btc',
+        component: './luong/khoiBTC/',
+      },
+      {
+        name: 'sc',
+        path: 'tinh-luong/khoi-sc',
+        component: './luong/khoiSC/',
+      },
+      {
+        name: 'lm',
+        path: 'tinh-luong/khoi-lm',
+        component: './luong/khoiLM/',
+      },
     ],
   },
   {
