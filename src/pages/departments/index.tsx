@@ -42,6 +42,7 @@ export default () => {
       dataIndex: 'ID',
       key: 'search',
       hidden: true,
+      hideInSetting: true,
       search: {
         transform: (value) => ({ search: value }),
       },
@@ -131,8 +132,7 @@ export default () => {
           }}
           rowKey="id"
           search={{
-            labelWidth: 0,
-            collapsed: true,
+            labelWidth: 'auto',
           }}
           options={{
             setting: {

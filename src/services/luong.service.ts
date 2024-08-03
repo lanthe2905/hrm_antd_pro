@@ -80,7 +80,7 @@ const createLuongLM = async (params: CreateForm) => {
 
 const getLuongLMData = async (params: BasicListRequest) => {
   const rs = await request<LuongListResponse>(resource + '/lm', {
-    param: paramtInterceptors(params),
+    params: paramtInterceptors(params),
     method: 'GET',
   })
 

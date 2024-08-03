@@ -4,7 +4,7 @@ import {
   ProFormDatePicker,
   ProFormText,
 } from '@ant-design/pro-components'
-import { createLuongSC } from '@/services/luong.service'
+import { createLuongLM } from '@/services/luong.service'
 import { handleApiError } from '@/util/handleError'
 import { getMessage, regexGetNumber, renderCurrency } from '@/util/common'
 import useCaiDat from '@/pages/luong/hooks/useCaiDat'
@@ -37,11 +37,8 @@ function Create(props: Props) {
           .toString()
         data['quy_luong'] = regexGetNumber(data?.quy_luong ?? 0)
         data['luong_toi_thieu'] = regexGetNumber(data?.luong_toi_thieu ?? 0)
-        data['don_gia_luong_san_pham'] = regexGetNumber(
-          data?.don_gia_luong_san_pham ?? 0,
-        )
 
-        const rs = await createLuongSC(data)
+        const rs = await createLuongLM(data)
         message.success(rs.message ?? '')
         form.resetFields()
         resetTable()
@@ -60,7 +57,7 @@ function Create(props: Props) {
         title={
           <>
             <Title level={4}> Tạo bảng lương </Title>
-            <span> Khối SC - Quỹ lương : {quyLuong}</span>
+            <span> Khối GT-BT - Quỹ lương : {quyLuong}</span>
           </>
         }
         form={form}
@@ -83,6 +80,7 @@ function Create(props: Props) {
             format: formatDate,
             style: { width: '100%' },
           }}
+          labelAlign="left"
         ></ProFormDatePicker>
 
         <ProFormText
@@ -103,6 +101,7 @@ function Create(props: Props) {
               )
             },
           }}
+          labelAlign="left"
         ></ProFormText>
 
         <ProFormText
@@ -124,35 +123,13 @@ function Create(props: Props) {
               )
             },
           }}
-        ></ProFormText>
-
-        <ProFormText
-          name={'don_gia_luong_san_pham'}
-          label="Đơn giá sản phẩm"
-          labelCol={{ span: 6 }}
-          initialValue={renderCurrency(
-            caiDat?.luong?.sc?.don_gia_luong_san_pham ?? 0,
-          )}
-          rules={[
-            {
-              required: true,
-              message: getMessage('required', 'Đơn giá sản phẩm'),
-            },
-          ]}
-          fieldProps={{
-            onBlur: (e) => {
-              form.setFieldValue(
-                'luong_toi_thieu',
-                renderCurrency(e.target.value) + '',
-              )
-            },
-          }}
+          labelAlign="left"
         ></ProFormText>
 
         <ProFormText
           name={'kdc'}
           label="Hệ số điều chỉnh"
-          initialValue={caiDat?.luong?.sc.kdc ?? 0}
+          initialValue={caiDat?.luong?.lm.kdc ?? 0}
           rules={[
             {
               required: true,

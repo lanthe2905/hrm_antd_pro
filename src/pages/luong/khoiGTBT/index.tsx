@@ -13,11 +13,11 @@ import {
 import { Space, Tooltip, Typography } from 'antd'
 import { getLuongGTBTData } from '@/services/luong.service'
 import type { Luong } from '@/models/luong.model'
-import KhoiLamLuongOptions from '@/components/KhoiLamluongOptions'
 import { renderCurrency } from '@/util/common'
 import Create from './create'
 import useHeaderTitle from '../hooks/useHeaderTitle'
 import dayjs from 'dayjs'
+import PhongBanOptions from '@/components/PhongBanOptions'
 const { Title, Text } = Typography
 
 const KhoiGTBT: FC = () => {
@@ -232,11 +232,9 @@ const KhoiGTBT: FC = () => {
                   {
                     hideInSetting: true,
                     hidden: true,
-                    key: 'khoi_ll',
+                    key: 'id_bo_phan',
                     renderFormItem: (schema, config) => {
-                      return (
-                        <KhoiLamLuongOptions {...config}></KhoiLamLuongOptions>
-                      )
+                      return <PhongBanOptions {...config}></PhongBanOptions>
                     },
                   },
                   ...columns.map((column) =>

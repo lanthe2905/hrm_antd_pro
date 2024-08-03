@@ -68,6 +68,8 @@ export default {
   'menu.salary.gt-bt': 'Lương khối GT-BT',
   'menu.salary.btc': 'Lương khối BTC',
   'menu.salary.sc': 'Lương khối SC',
+  'menu.salary.lm': 'Lương khối Lái máy',
+  'menu.salary.dtlt': 'Lương đội trưởng',
   //Cài đặt
   'menu.setting': 'Cài đặt',
 

@@ -120,6 +120,11 @@ export default [
         path: 'tinh-luong/khoi-sc',
         component: './luong/khoiSC/',
       },
+      {
+        name: 'lm',
+        path: 'tinh-luong/khoi-lm',
+        component: './luong/khoiLM/',
+      },
     ],
   },
   {
